@@ -105,6 +105,10 @@ See `docs/SECURITY.md` and the compiled LaTeX project in `docs/paper/`.
   wire-distribution comparisons in the Rust model, with zero mismatches.
 - An unsafe unmasked cross-term sum has exact total-variation distance 0.20.
   Two output shares reconstruct the product: the second-order boundary is visible.
+- A supplemental correlated-share audit checks 78,125 executions plus 3,125
+  explicit squaring executions in Rust and independently in Python. All 19
+  observed-wire distributions agree; omitting independent operand refresh
+  exposes a cross-product with exact total-variation distance 0.60.
 - Three timing runs with 10,000 samples per class per case retain all reported
   measurements and cropping summaries. Deliberately leaky controls are detected.
 - This recorded run has no exploratory timing signal above 4.5 in the protected
@@ -130,12 +134,14 @@ are included. These are observations from one run, not promises of throughput.
 - `tools/audit.rs`: exact generic-gadget audit and synthetic mutation campaign.
 - `tools/timing.rs`: diagnostic timing harness with negative control.
 - `tools/verify.py`: single-command reproduction without package downloads.
+- `tools/correlation_audit.py`: independently checked correlated-share and squaring experiment.
+- `docs/ORIGINALITY-REVIEW.md`: contribution map and why a secret-matrix pivot was rejected.
 
 The `audit` and `fixtures` features deliberately reveal synthetic diagnostics
 and use deterministic test randomness. They are absent from the normal demo
 binary and must never be used to provision operational keys.
 
-## Originality and disclosure
+## Originality and review status
 
 This exact implementation and protocol composition were developed for this
 hackathon. Finite-field masking, two-share gadgets, polynomial authentication,
@@ -145,7 +151,6 @@ a new multi-use encryption primitive. The organizer must interpret the rule
 against pre-existing encryption algorithms; implementing mathematical components
 ourselves does not automatically settle that interpretation.
 
-AI assistance contributed to design, implementation, tests, and writing.
 No independent human cryptographic audit or physical measurement campaign has
 been performed. This is a documented research experiment, not production software.
 

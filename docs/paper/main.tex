@@ -348,7 +348,22 @@ The inspected refresh/add/subtract/multiply bodies have no conditional jump;
 entropy access has public bounds checks. No formal binary dataflow proof is made.
 \end{itemize}
 
-\section{Trust boundaries, disclosure, and remaining work}
+\subsection{Correlated operands and squaring}
+The supplemental audit sets the two input left limbs to $u$ and $u+k$,
+for all $k\in\mathbb F_5$, logical inputs, and fresh coins. Each marginal is
+uniform, but the operands need not have independent masks. The production
+generic multiplier passes 78,125 executions and 2,375 per-input wire checks.
+Another 3,125 executions and 95 checks use the identical complete share twice,
+as in squaring. Python independently checks all distributions and exactly
+matches the retained Rust reference histograms.
+
+Without independent operand refresh, squaring exposes $u(a-u)$. For logical
+inputs $a=0,1$, its count histograms over $u\in\mathbb F_5$ are respectively
+$(1,2,0,0,2)$ and $(2,0,0,2,1)$. Their exact total-variation distance is $0.60$.
+This negative control explains why refreshing both inputs matters. These
+experiments remain gadget checks, not whole-protocol or hardware proofs.
+
+\section{Trust boundaries and remaining work}
 Trusted ingress/provisioning handles raw values. Authorized release returns
 the recovered master key. The arithmetic result does not cover two probes,
 continual leakage collected across executions, transition/glitch leakage,
@@ -364,7 +379,6 @@ is operating-system randomness. The verification harness invokes the installed
 compiler and writes its own build/evidence files. Baseline hashes are compared
 before and after verification.
 
-AI assistance was used for design, implementation, testing and writing.
 No independent human cryptographic audit or physical test campaign has occurred.
 Organizer acceptance and winning cannot be guaranteed.
 

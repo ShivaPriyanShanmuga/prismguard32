@@ -52,19 +52,15 @@ allowing an adversary to collect complementary shares over separate runs.
 
 This version materially improves the security work and reviewer experience.
 It remains inappropriate to call it guaranteed to win, globally novel, audited,
-or physically side-channel resistant. A useful next external step is to obtain
-the organizer's interpretation of the originality requirement. The prepared
-question below is deliberately not sent without explicit messaging authority.
+or physically side-channel resistant. Organizer clarification is unavailable.
+The entry therefore states its contribution precisely and preserves the
+originality uncertainty instead of assuming an exception to the published rule.
 
-Suggested organizer question:
-
-> For the Cryptographer track, does the ban on pre-existing encryption algorithms
-> allow a protocol composed and implemented for this hackathon from finite-field
-> masks, invertible linear/power maps, and established masking/authentication
-> techniques, with those foundations explicitly credited? The contribution is
-> the specific masked capsule/recovery protocol and its reproducible analysis;
-> it does not invoke an existing plaintext cipher or claim those foundations
-> are new.
+A further secret-matrix alternative was analyzed and rejected: a new appearance
+did not establish a new cryptographic foundation and increased material costs.
+See `ORIGINALITY-REVIEW.md` and the executable small-field experiment.
+The chosen improvement is a correlated-share and squaring audit of the actual
+generic multiplier, with an independently checked missing-refresh control.
 
 ## Machine-safety record
 

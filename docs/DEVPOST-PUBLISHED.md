@@ -99,6 +99,11 @@ alone prevents side channels.
 - A deliberately unsafe cross-term sum is distinguishable with **exact
   total-variation distance 0.20**. Two output shares reconstruct the product,
   demonstrating the second-order boundary.
+- A supplemental audit uses correlated share masks and identical operands:
+  **78,125 correlated-mask executions plus 3,125 squaring executions** in Rust
+  and independently in Python. All 19 wire distributions agree across logical
+  inputs. A deliberately broken missing-refresh control has exact
+  **total-variation distance 0.60**, showing why both operands are refreshed.
 - A known-plaintext attack succeeds when logical pad material is deliberately
   reused. The failure is retained, not concealed.
 - Rust rejects sender reuse and receiver cloning. Successful opening prevents
@@ -124,6 +129,8 @@ shared-schedule adversarial harness. No existing plaintext-cipher implementation
 is invoked. Finite-field masking, matrix/power maps, polynomial authentication,
 and ISW-style share techniques are established foundations and are credited.
 No global novelty claim or invention of universal hashing/masking is made.
+The [contribution map and rejected-pivot analysis](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/ORIGINALITY-REVIEW.md)
+separate the developed protocol and test harness from those foundations.
 The organizer determines how the track's pre-existing-algorithm restriction
 applies to this composition.
 
@@ -142,7 +149,7 @@ It costs 96 logical-material bytes, or 192 bytes as two shares, per endpoint.
 Eight hostile packets can still deny recovery. Volatile wipes do not erase all
 possible moves, spills, caller copies or crash dumps.
 
-## What I learned
+## Design lessons
 
 A useful security project must show what its tests can detect and where its
 argument stops. The unsafe gadget control, reuse attack, and second-order
@@ -150,10 +157,9 @@ boundary are as important as passing tests. The improvement over the baseline
 is protected computation and an explicit operational contract, rather than
 extra public mathematical layers.
 
-## Disclosure and references
+## Review status and references
 
-AI assistance contributed to design, code, tests and writing. No independent
-human cryptographic audit or physical measurement campaign has occurred.
+No independent human cryptographic audit or physical measurement campaign has occurred.
 
 - [Ishai, Sahai, Wagner: Private Circuits](https://iacr.org/archive/crypto2003/27290462/27290462.pdf)
 - [Faust et al.: Robust probing and composability](https://eprint.iacr.org/2017/711)

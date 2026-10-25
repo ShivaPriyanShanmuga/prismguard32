@@ -95,9 +95,9 @@ def main():
     im,d=base(9,'Review the model before trusting the result','The boundaries are part of the result.')
     paragraphs(d,[('Never reuse logical pad material. Keep provisioning confidential.',GREEN),
                   ('A single field-wire model does not establish protection against multiple probes, physical leakage, register transitions, a compromised OS, or rollback.',WHITE),
-                  ('Established techniques are credited. AI assistance is disclosed. No independent human audit has occurred.',WHITE),
+                  ('Established techniques are credited. No independent human audit or physical measurement campaign has occurred.',WHITE),
                   ('Research prototype: source, compiled LaTeX, raw evidence, and reproducible commands accompany the entry.',GREY)],size=23)
-    add(im,'The boundaries matter. Logical pads must never be reused. This is not a physical side-channel certificate or an independently audited product. Established techniques are credited, and AI assistance is disclosed. The source and evidence support review.')
+    add(im,'The boundaries matter. Logical pads must never be reused. This is not a physical side-channel certificate or an independently audited product. Established techniques are credited. The source and evidence support review.')
     for i,im in enumerate(pictures):im.save(MEDIA/f'walkthrough-{i+1:02d}.png')
     thumb=Image.new('RGB',(1200,800),NAVY);d=ImageDraw.Draw(thumb)
     d.text((78,74),'PRISMGUARD / 32',font=font(38,True),fill=GREEN)

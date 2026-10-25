@@ -139,4 +139,24 @@ release boundary and accompanying harness were developed for this entry.
 - [dudect documentation, including limitations](https://github.com/oreparaz/dudect)
 - [Intel timing guidance](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/secure-coding/mitigate-timing-side-channel-crypto-implementation.html)
 
-AI assistance was used throughout. No independent human audit has occurred.
+No independent human audit has occurred.
+
+## Correlated operands and squaring
+
+Independent input sharing is not a sufficient test for the implementation's
+repeated squaring operations. The supplemental `correlation_audit` runs the
+same generic Rust multiplier with input left limbs u and u+k for every k in
+F5, every logical input pair, and all fresh randomness. That is 78,125
+executions and 2,375 per-input wire comparisons. Another 3,125 executions and
+95 comparisons explicitly use the identical complete input share twice.
+All 19 single-wire histograms agree across logical inputs in each experiment.
+Python checks the distributions independently and matches Rust's retained
+reference histograms exactly. Source hashes accompany the evidence.
+
+The missing-refresh control exposes u(a-u) when squaring. For logical inputs
+0 and 1, its F5 count histograms are [1,2,0,0,2] and [2,0,0,2,1], giving exact
+total-variation distance 0.60. This makes the reason for independent operand
+refresh observable. The control is a mathematical counterexample, not a
+modification to the production implementation. These tests remain local
+gadget evidence; they do not establish arbitrary composition, a joint
+leakage-and-forgery theorem, machine-code noninterference, or physical safety.

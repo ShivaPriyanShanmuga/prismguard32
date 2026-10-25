@@ -1,0 +1,10 @@
+{
+  "field": 5,
+  "invertible_matrices": 480,
+  "lift": "(m,1)",
+  "outputs_per_message": 24,
+  "matrices_per_output": 20,
+  "one_use_distributions_equal": true,
+  "reused_matrix_two_known_plaintext_recoveries": 9600,
+  "decision": "Reject as an originality fix: established secret linear-map ideas, larger material, and one-use assumptions remain. A toy secrecy argument is not evidence of a new primitive."
+}

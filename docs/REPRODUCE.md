@@ -9,6 +9,8 @@ rustc --edition=2021 -D warnings -C opt-level=3 -C overflow-checks=yes src/main.
 .\build\prismguard32.exe demo
 .\build\prismguard32.exe lab
 python tools/verify.py
+python tools/correlation_audit.py
+python tools/pivot_review.py
 ```
 
 The harness writes its own build and evidence files, invokes the installed
@@ -27,6 +29,14 @@ change system settings, or test attacks against other applications.
 | audit.exe | Exact F5 multiplier model, vectors, mutation campaign | No; deterministic fixture feature enabled |
 | timing.exe | Timing diagnostic with negative control and retained samples | No; deterministic fixture feature enabled |
 | benchmark.exe | Operation and end-to-end timing | No; synthetic keys |
+
+The supplemental `correlation_audit.py` builds its own audit-only binary,
+checks the production generic multiplier on correlated shares and squaring,
+then compares its exact histograms to an independent Python model. It writes
+`evidence/correlation-audit.json`, including tested-source hashes. It is
+separate from the original aggregate verification snapshot. `pivot_review.py`
+reproduces the small-field analysis of a rejected secret-matrix alternative;
+it is a design experiment, not the submitted encryption algorithm.
 
 Specific diagnostic commands:
 
