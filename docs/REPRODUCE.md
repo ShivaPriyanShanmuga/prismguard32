@@ -4,6 +4,7 @@ Run commands from this new project directory. No package download is needed.
 The recorded build used Rust 1.89.0 x86_64-pc-windows-msvc and Python 3.14.
 
 ```powershell
+New-Item -ItemType Directory -Path build -Force | Out-Null
 rustc --edition=2021 -D warnings -C opt-level=3 -C overflow-checks=yes src/main.rs -o build/prismguard32.exe
 .\build\prismguard32.exe demo
 .\build\prismguard32.exe lab
@@ -11,7 +12,9 @@ python tools/verify.py
 ```
 
 The harness writes its own build and evidence files, invokes the installed
-compiler, and checks that the PrismLock-32 baseline stays unchanged. No user
+compiler, and checks that the PrismLock-32 baseline stays unchanged when that
+sibling folder is present. A standalone download explicitly records that the
+baseline check was not performed. The script creates its build directory. No user
 file is an encryption input. It does not install dependencies, delete files,
 change system settings, or test attacks against other applications.
 

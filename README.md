@@ -30,6 +30,7 @@ No actual user key or file is accepted as input.
 Build with the installed Rust toolchain and no downloads:
 
 ```powershell
+New-Item -ItemType Directory -Path build -Force | Out-Null
 rustc --edition=2021 -C opt-level=3 -C overflow-checks=yes src/main.rs -o build/prismguard32.exe
 python tools/verify.py
 ```

@@ -21,6 +21,7 @@ def run(args,expected=0):
 
 def baseline_hashes():
     baseline=ROOT.parent/'PrismLock-32'
+    if not baseline.is_dir():return None
     return {str(p.relative_to(baseline)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(baseline.rglob('*')) if p.is_file()}
 
@@ -33,6 +34,8 @@ def compile_fail(name,body,error):
     return {'expected_error':error,'rejected_by_compiler':True}
 
 def main():
+    BUILD.mkdir(parents=True,exist_ok=True)
+    EVIDENCE.mkdir(parents=True,exist_ok=True)
     before=baseline_hashes()
     print('Building isolated source and running functional tests...',flush=True)
     run(['rustc','--edition=2021','-D','warnings','--test','src/lib.rs','-o',str(BUILD/'tests.exe')])
@@ -77,14 +80,15 @@ def main():
     assembly_review=json.loads(run([sys.executable,'tools/assembly_review.py']))
     demo=run([str(BUILD/'prismguard32.exe'),'demo']);(EVIDENCE/'demo-output.txt').write_text(demo,encoding='utf-8')
     after=baseline_hashes();assert before==after,'Baseline changed during verification'
-    (EVIDENCE/'baseline-preservation.json').write_text(json.dumps({'unchanged':True,'files_compared':len(before),'sha256':before},indent=2)+'\n',encoding='utf-8')
+    baseline_checked=before is not None
+    (EVIDENCE/'baseline-preservation.json').write_text(json.dumps({'checked':baseline_checked,'unchanged':True if baseline_checked else None,'files_compared':len(before) if baseline_checked else 0,'sha256':before},indent=2)+'\n',encoding='utf-8')
     timing_signals=[{'seed':r['seed'],'case':c['case'],'max_abs_t':c['max_abs_t_with_cropping']}
                     for r in timing for c in r['cases'] if not c['negative_control'] and c['max_abs_t_with_cropping']>4.5]
     report={'compiler':run(['rustc','--version']).strip(),'target':platform.machine(),'platform':platform.platform(),
             'functional_test_groups':14,'single_bit_capsule_modifications':832,'byte_value_roundtrips':256,
             'reference':reference,'gadget_model':model,'mutations':mutations,'sender_reuse':sender,'receiver_clone':receiver,
             'benchmark':benchmarks,'timing_runs':timing,'timing_exploratory_signals_over_4_5':timing_signals,
-            'integer_division_instructions':division,'baseline_unchanged':before==after,
+            'integer_division_instructions':division,'baseline_checked':baseline_checked,'baseline_unchanged':True if baseline_checked else None,
             'assembly_shape_checks':assembly_review,
             'security_scope':'Ideal arithmetic circuit: single field-wire distribution argument + exact F5 gadget enumeration. No whole-protocol formal verifier, compiler proof, hardware power/EM test or independent human audit.',
             'source_sha256':{str(p.relative_to(ROOT)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest()
@@ -92,6 +96,6 @@ def main():
     (EVIDENCE/'verification.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'functional_groups':14,'vectors':reference['wire_vectors'],'arithmetic_operations':reference['arithmetic_operations'],
                       'gadget_executions_each_implementation':model['executions'],'negative_control_tv':model['unsafe_cross_sum_total_variation'],
-                      'benchmark':benchmarks,'timing_signals':timing_signals,'baseline_unchanged':True},indent=2),flush=True)
+                      'benchmark':benchmarks,'timing_signals':timing_signals,'baseline_checked':baseline_checked,'baseline_unchanged':True if baseline_checked else None},indent=2),flush=True)
 
 if __name__=='__main__':main()

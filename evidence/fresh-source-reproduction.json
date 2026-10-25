@@ -1,0 +1,41 @@
+{
+  "kind": "fresh exported source reproduction",
+  "build_directory_initially_absent": true,
+  "baseline_sibling_absent": true,
+  "verification_script_created_build_directory": true,
+  "functional_groups": 14,
+  "vectors": 512,
+  "arithmetic_operations": 60000,
+  "exact_gadget_executions": 78125,
+  "mutation_cases": 2000,
+  "timing_exploratory_signals_over_4_5": [],
+  "benchmark": [
+    {
+      "case": "seal_rng_provisioning_excluded",
+      "samples": 1000,
+      "median_ns": 1500,
+      "p95_ns": 1900
+    },
+    {
+      "case": "open_rng_provisioning_excluded",
+      "samples": 1000,
+      "median_ns": 16300,
+      "p95_ns": 20600
+    },
+    {
+      "case": "end_to_end_including_os_rng_pools_ingress_and_provisioning",
+      "samples": 200,
+      "median_ns": 55900,
+      "p95_ns": 88100
+    }
+  ],
+  "core_source_matches_authoring_run": true,
+  "core_source_sha256": {
+    "src/lib.rs": "438e76dc72f66d668bdbdc24391f53d785af336d8ba2a6d0051b6f5d1cb1f153",
+    "src/field.rs": "6b1bb0ff6eb131b6878a4fe1fce3df6eb2eaf6202e44fc45d20938b04d5be45a",
+    "src/entropy.rs": "be94698d3247ce684d9606a6e1799cf127585ca1071efd581752fc07f9903e73",
+    "src/masked.rs": "4e2fea7fc260a2525dc936e5979517cead99d68317e97001adc1fa71c97d3b02",
+    "src/main.rs": "80ef3e00e9b3a13ccaf1c161f16a7664a9e23db32ed9c8568602e793a158dc8c"
+  },
+  "note": "Full raw reproduction records are retained locally under release/fresh-source-check/evidence; original authoring measurements remain in the main evidence folder."
+}
