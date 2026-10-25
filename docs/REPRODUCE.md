@@ -83,3 +83,6 @@ hash inventory. Compiler diagnostic paths are redacted to `<project>`.
 It includes source, documentation, synthetic vectors, timing observations,
 figures, and the local video. `MANIFEST.json` hashes every exported file.
 The ZIP is checked for CRC errors, unsafe paths, and manifest consistency.
+Public text files use canonical LF line endings, and the project attributes
+preserve them in Git. Manifest checksums therefore describe the same bytes in
+the public repository and archive; PNG/video bytes are not transformed.

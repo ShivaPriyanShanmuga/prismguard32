@@ -11,7 +11,7 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 RELEASE=ROOT/'release';PUBLIC=RELEASE/'public-source'
 OMIT={'tools/narrate.ps1','evidence/baseline-preservation.json','docs/SUBMISSION-STATUS.md'}
-TEXT={'.rs','.py','.ps1','.md','.tex','.toml','.json','.csv','.txt','.ffconcat','.s'}
+TEXT={'.rs','.py','.ps1','.md','.tex','.toml','.json','.jsonl','.csv','.txt','.ffconcat','.s'}
 
 def main():
     RELEASE.mkdir(exist_ok=True);PUBLIC.mkdir(exist_ok=True)
@@ -26,15 +26,15 @@ def main():
     for source,key in selected:
         target=PUBLIC/key;target.parent.mkdir(parents=True,exist_ok=True)
         data=source.read_bytes()
-        if source.suffix.lower() in TEXT:
-            text=data.decode('utf-8')
+        if source.suffix.lower() in TEXT or source.name in {'LICENSE','.gitignore','.gitattributes'}:
+            text=data.decode('utf-8').replace('\r\n','\n')
             for base,label in [(ROOT,'<project>'),(Path.home(),'<user-home>')]:
                 for variant in [str(base),str(base).replace('\\','/'),str(base).replace('\\','\\\\')]:text=text.replace(variant,label)
             assert not re.search(r"[A-Za-z]:[\\/]+Users[\\/]+[A-Za-z0-9._-]+",text),key
             data=text.encode('utf-8')
         target.write_bytes(data)
         manifest[key]={'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)}
-    (PUBLIC/'MANIFEST.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+    (PUBLIC/'MANIFEST.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
     archive=RELEASE/'PrismGuard-32-review-kit.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
         for key in sorted(manifest):z.write(PUBLIC/key,'PrismGuard-32/'+key)
