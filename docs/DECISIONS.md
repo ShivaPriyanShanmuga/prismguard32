@@ -69,4 +69,6 @@ files are hashed before/after verification. There are no delete operations,
 system-setting changes, real credentials, malware samples, network targets,
 exploits against software on the machine, or arbitrary file encryption.
 The attacks are mathematical counterexamples and timing measurements of this
-project's own synthetic functions. No dependency was downloaded or installed.
+project's own synthetic functions. Core cryptographic verification installs
+no dependencies. Subsequent optional neural narration used a PyPI client in
+the project's own build folder and sent only the public explanation text.

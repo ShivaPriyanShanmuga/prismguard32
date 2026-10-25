@@ -1,0 +1,153 @@
+{
+  "video": "PrismGuard-32-narrated-demo.mp4",
+  "voice": "en-US-AndrewMultilingualNeural",
+  "rate": "+5%",
+  "speech_service": "Microsoft online neural speech via edge-tts",
+  "client_version": "7.3.1",
+  "scenes": [
+    {
+      "scene": 1,
+      "speech_seconds": 13.896,
+      "words": 33,
+      "speech_words_per_minute": 142.5,
+      "scene_seconds": 15.125,
+      "audio_sha256": "3ccc7d485530ab7e43ae8bfac042a3abd3356865498ac14ad09a4c0f636c0cda"
+    },
+    {
+      "scene": 2,
+      "speech_seconds": 17.016,
+      "words": 40,
+      "speech_words_per_minute": 141.0,
+      "scene_seconds": 18.25,
+      "audio_sha256": "ee9526ba2d70585534342ee3dbc3aa17c7dc5b4e99646034e92ad08f8f464708"
+    },
+    {
+      "scene": 3,
+      "speech_seconds": 19.344,
+      "words": 43,
+      "speech_words_per_minute": 133.4,
+      "scene_seconds": 20.583333333333332,
+      "audio_sha256": "88a732172e7dec710e79a95eb67d7d17f6553af78a75c6ef640e8b69253a04f5"
+    },
+    {
+      "scene": 4,
+      "speech_seconds": 20.304,
+      "words": 40,
+      "speech_words_per_minute": 118.2,
+      "scene_seconds": 21.541666666666668,
+      "audio_sha256": "473d76207ec40dc93eebf8a2f4c3d4c385f51797e0ddfa86828b14a95328037d"
+    },
+    {
+      "scene": 5,
+      "speech_seconds": 20.376,
+      "words": 44,
+      "speech_words_per_minute": 129.6,
+      "scene_seconds": 21.583333333333332,
+      "audio_sha256": "90c380176ff50887a6845a9a3d80a13e0abf1f9fdf16acc8d63c28759eefbfa2"
+    },
+    {
+      "scene": 6,
+      "speech_seconds": 19.992,
+      "words": 44,
+      "speech_words_per_minute": 132.1,
+      "scene_seconds": 21.208333333333332,
+      "audio_sha256": "04cf8ff73b12bec43b5445a0835c5dd5a45e50507de541867d5b1f1cc59aafe5"
+    },
+    {
+      "scene": 7,
+      "speech_seconds": 17.784,
+      "words": 44,
+      "speech_words_per_minute": 148.4,
+      "scene_seconds": 19.0,
+      "audio_sha256": "089830c8bcea170eeeb746793baee4db4fc8320d1b0d73aa6c73399503295029"
+    },
+    {
+      "scene": 8,
+      "speech_seconds": 22.44,
+      "words": 47,
+      "speech_words_per_minute": 125.7,
+      "scene_seconds": 23.666666666666668,
+      "audio_sha256": "7ca741e1f94a32590f06031a365f2f9272f185da4a5c06275d7a69b493629208"
+    },
+    {
+      "scene": 9,
+      "speech_seconds": 25.152,
+      "words": 53,
+      "speech_words_per_minute": 126.4,
+      "scene_seconds": 26.375,
+      "audio_sha256": "5cbe90f8710db3bf667e8def2764ac88f600aa807d9b86138b11a2d8158ca543"
+    }
+  ],
+  "chapters": [
+    {
+      "scene": 1,
+      "title": "A masked master-key capsule",
+      "start_seconds": 0.0,
+      "duration_seconds": 15.125
+    },
+    {
+      "scene": 2,
+      "title": "Bounded recovery",
+      "start_seconds": 15.125,
+      "duration_seconds": 18.25
+    },
+    {
+      "scene": 3,
+      "title": "Number theory and linear algebra",
+      "start_seconds": 33.375,
+      "duration_seconds": 20.583333333333332
+    },
+    {
+      "scene": 4,
+      "title": "Protected computation",
+      "start_seconds": 53.958,
+      "duration_seconds": 21.541666666666668
+    },
+    {
+      "scene": 5,
+      "title": "Exact small-field experiment",
+      "start_seconds": 75.5,
+      "duration_seconds": 21.583333333333332
+    },
+    {
+      "scene": 6,
+      "title": "A control that deliberately leaks",
+      "start_seconds": 97.083,
+      "duration_seconds": 21.208333333333332
+    },
+    {
+      "scene": 7,
+      "title": "Actual captured demonstration output",
+      "start_seconds": 118.292,
+      "duration_seconds": 19.0
+    },
+    {
+      "scene": 8,
+      "title": "Additional adversarial evidence",
+      "start_seconds": 137.292,
+      "duration_seconds": 23.666666666666668
+    },
+    {
+      "scene": 9,
+      "title": "Security boundaries",
+      "start_seconds": 160.958,
+      "duration_seconds": 26.375
+    }
+  ],
+  "duration_seconds": 187.5,
+  "size_bytes": 4015093,
+  "video_sha256": "65d564c522fb7038dd19495d6f91bfa7dc10ed262736ca936146996f5376607a",
+  "scene_lead_seconds": 0.35,
+  "minimum_scene_tail_seconds": 0.85,
+  "subtitle_source": "speech-service word timestamps",
+  "scope": "Narrated caption-card walkthrough with actual captured demo excerpt; not a continuous screen recording.",
+  "original_silent_video_preserved": true,
+  "core_crypto_sources_changed": false,
+  "loudness_normalization": {
+    "method": "two-pass EBU R128 loudnorm with synchronized PCM intermediate",
+    "integrated_lufs": -16.07,
+    "true_peak_dbtp": -1.45
+  },
+  "full_decode_check": "passed with no decoder errors",
+  "manual_listening_review_claimed": false
+}

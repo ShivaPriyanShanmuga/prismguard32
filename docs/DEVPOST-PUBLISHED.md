@@ -1,6 +1,6 @@
 ![PrismGuard-32: masked key capsules](https://raw.githubusercontent.com/ShivaPriyanShanmuga/prismguard32/main/media/cover-3x2.png)
 
-**Reviewer resources:** [Source and reproduction instructions](https://github.com/ShivaPriyanShanmuga/prismguard32) · [Technical paper in LaTeX](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/paper/main.tex) · [135-second captioned walkthrough](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/media/PrismGuard-32-walkthrough.mp4)
+**Reviewer resources:** [Source and reproduction instructions](https://github.com/ShivaPriyanShanmuga/prismguard32) · [Technical paper in LaTeX](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/paper/main.tex) · [Narrated demo on YouTube — 3:08, English captions](https://youtu.be/nHYJd-8BGlc) · [GitHub video player and transcript](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-narrated-demo)
 
 ## Inspiration
 

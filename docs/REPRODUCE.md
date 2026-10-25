@@ -75,15 +75,32 @@ run's median as a stable throughput guarantee.
 
 ## Media
 
-The PNGs and 135-second captioned MP4 are already provided. They are a
-constructed walkthrough with an excerpt of actual captured demo output,
-not a continuous screen recording or an independent audit.
+The PNGs, original 135-second silent MP4, and 3:08 narrated MP4 are provided.
+They are constructed walkthroughs with an excerpt of actual captured demo
+output, not continuous screen recordings or independent audits. The README
+has a GitHub-native video player and an Unlisted YouTube link. English captions
+and a readable transcript accompany the narrated version.
 
 For local regeneration, `tools/charts.ps1` uses installed .NET Charting and
 `tools/media.py` uses Pillow plus installed ffmpeg. The media script downloads
 nothing. If a local script policy blocks a rendering helper, leave the policy
-unchanged and use the provided assets. Automatic narration was blocked on the
-authoring machine; the delivered video uses captions and no voice/audio.
+unchanged and use the provided assets. The original Windows narration helper
+was blocked on the authoring machine; its policy was left unchanged.
+
+The separate `tools/narrated_video.py` media tool uses Microsoft's online
+neural speech service through `edge-tts` 7.3.1. Its optional Python client and
+dependencies were installed only in `build/narration-deps`, outside the
+dependency-free Rust core. It sends the public narration script, not key
+material, credentials, or browser data. It uses the Andrew Multilingual
+neural voice, matches scene duration to speech, and derives SRT cues from
+word timestamps. A synchronized PCM intermediate and two-pass loudness
+normalization provide approximately -16 LUFS with headroom below clipping.
+The media report retains actual duration, voice/rate, per-scene speech rates,
+audio measurements, and final-file hash. No manual listening audit is claimed.
+
+Regeneration is optional; the final artifacts need no speech-service account
+or package installation to play. The original verification commands above
+remain offline and do not install these optional media dependencies.
 
 ## Publication safety
 

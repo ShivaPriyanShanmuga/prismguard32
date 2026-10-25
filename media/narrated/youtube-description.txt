@@ -1,0 +1,21 @@
+PrismGuard-32: a narrated research demonstration for the Cryptographer track of Mathematics for Systems Security.
+
+Source, mathematical paper, and reproducible evidence:
+https://github.com/ShivaPriyanShanmuga/prismguard32
+
+The Rust prototype wraps a synthetic 32-byte master key in an authenticated capsule. Private arithmetic stays in randomized shares; verification releases its final decision; the receiver supports bounded recovery after hostile packets.
+
+The walkthrough includes actual captured demonstration output, exact small-field experiments, correlated-share and squaring checks, and deliberately leaky negative controls. It uses caption cards and a captured terminal excerpt rather than a continuous screen recording.
+
+Research limits: fresh one-use material and trusted provisioning are required. The arithmetic model is not a physical side-channel certificate or an independent cryptographic audit. No real keys or user files are used.
+
+Chapters
+00:00 A masked master-key capsule
+00:15 Bounded recovery
+00:33 Number theory and linear algebra
+00:53 Protected computation
+01:15 Exact small-field experiment
+01:37 A control that deliberately leaks
+01:58 Actual captured demonstration output
+02:17 Additional adversarial evidence
+02:40 Security boundaries

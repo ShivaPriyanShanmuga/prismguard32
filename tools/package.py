@@ -11,7 +11,7 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 RELEASE=ROOT/'release';PUBLIC=RELEASE/'public-source'
 OMIT={'tools/narrate.ps1','evidence/baseline-preservation.json','docs/SUBMISSION-STATUS.md'}
-TEXT={'.rs','.py','.ps1','.md','.tex','.toml','.json','.jsonl','.csv','.txt','.ffconcat','.s'}
+TEXT={'.rs','.py','.ps1','.md','.tex','.toml','.json','.jsonl','.csv','.txt','.srt','.ffconcat','.s'}
 
 def main():
     RELEASE.mkdir(exist_ok=True);PUBLIC.mkdir(exist_ok=True)

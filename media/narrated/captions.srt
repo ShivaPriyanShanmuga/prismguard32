@@ -1,0 +1,207 @@
+1
+00:00:00,445 --> 00:00:02,826
+Prism Guard thirty two is a master key
+
+2
+00:00:02,838 --> 00:00:06,398
+capsule and recovery laboratory It wraps a synthetic
+
+3
+00:00:06,410 --> 00:00:09,612
+thirty two byte key in an authenticated capsule
+
+4
+00:00:09,993 --> 00:00:13,338
+This demonstration uses no real credentials or user
+
+5
+00:00:13,350 --> 00:00:13,910
+files
+
+6
+00:00:15,570 --> 00:00:18,546
+The receiver can reject seven hostile packets and
+
+7
+00:00:18,546 --> 00:00:21,094
+still recover from a genuine eighth packet An
+
+8
+00:00:21,106 --> 00:00:24,594
+eighth failure locks the receiver After successful recovery
+
+9
+00:00:24,951 --> 00:00:28,451
+the receiver refuses further attempts This makes both
+
+10
+00:00:28,463 --> 00:00:32,130
+the recovery policy and its availability limit explicit
+
+11
+00:00:33,820 --> 00:00:36,296
+The construction uses a prime equal to two
+
+12
+00:00:36,404 --> 00:00:38,915
+to the power of sixty one minus one
+
+13
+00:00:39,296 --> 00:00:42,451
+An invertible matrix and a coordinate power transform
+
+14
+00:00:42,689 --> 00:00:46,844
+the masked key Fresh independent one use secret
+
+15
+00:00:46,856 --> 00:00:50,951
+material supplies confidentiality The public transformations do not
+
+16
+00:00:51,070 --> 00:00:52,713
+add cryptographic hardness
+
+17
+00:00:54,415 --> 00:00:57,642
+Private field values stay in two randomized shares
+
+18
+00:00:58,035 --> 00:01:02,689
+Both operands are independently refreshed before multiplication including
+
+19
+00:01:02,701 --> 00:01:06,082
+when a value is squared Authentication differences also
+
+20
+00:01:06,094 --> 00:01:10,094
+stay shared Verification releases only its final decision
+
+21
+00:01:10,511 --> 00:01:14,261
+and plaintext is released only after authentication succeeds
+
+22
+00:01:15,933 --> 00:01:19,910
+The exact small field experiment observes nineteen wires
+
+23
+00:01:19,993 --> 00:01:23,231
+in the multiplier Every logical input pair and
+
+24
+00:01:23,350 --> 00:01:26,576
+every random assignment is checked The protected wire
+
+25
+00:01:26,588 --> 00:01:30,921
+distributions match across secret inputs The same generic
+
+26
+00:01:30,921 --> 00:01:33,981
+Rust schedule is used in production and Python
+
+27
+00:01:34,040 --> 00:01:35,898
+independently checks the experiment
+
+28
+00:01:37,529 --> 00:01:41,552
+The deliberately unsafe control combines cross terms without
+
+29
+00:01:41,564 --> 00:01:44,707
+their random mask Its distributions differ by total
+
+30
+00:01:44,707 --> 00:01:48,243
+variation zero point two so this experiment detects
+
+31
+00:01:48,243 --> 00:01:51,910
+the intended leak Observing both output shares also
+
+32
+00:01:51,921 --> 00:01:55,469
+reconstructs the product That attack lies outside the
+
+33
+00:01:55,469 --> 00:01:57,088
+single wire protection model
+
+34
+00:01:58,737 --> 00:02:01,011
+This is an excerpt of actual captured Rust
+
+35
+00:02:01,011 --> 00:02:04,380
+output Three altered packets are rejected The genuine
+
+36
+00:02:04,380 --> 00:02:08,285
+capsule then recovers exactly the synthetic key A
+
+37
+00:02:08,285 --> 00:02:11,749
+replay after successful recovery is blocked This is
+
+38
+00:02:11,749 --> 00:02:14,725
+captured output presented as a walkthrough rather than
+
+39
+00:02:14,725 --> 00:02:16,070
+a continuous screen recording
+
+40
+00:02:17,725 --> 00:02:20,713
+The suite includes fourteen Rust test groups and
+
+41
+00:02:20,713 --> 00:02:23,796
+an independent capsule oracle An additional eighty one
+
+42
+00:02:23,808 --> 00:02:27,142
+thousand two hundred and fifty executions test correlated
+
+43
+00:02:27,154 --> 00:02:31,487
+shares and squaring Those distributions match while omitting
+
+44
+00:02:31,487 --> 00:02:36,296
+independent refresh exposes a measurable leak Timing diagnostics
+
+45
+00:02:36,308 --> 00:02:39,749
+retain raw measurements and deliberately leaky controls
+
+46
+00:02:41,392 --> 00:02:44,761
+The limits matter Never reuse logical pad material
+
+47
+00:02:45,130 --> 00:02:48,749
+and keep provisioning confidential These arithmetic experiments are
+
+48
+00:02:48,749 --> 00:02:51,261
+not a physical side channel certificate or an
+
+49
+00:02:51,273 --> 00:02:55,689
+independent cryptographic audit Multiple probes power measurements a
+
+50
+00:02:55,701 --> 00:02:59,606
+compromised operating system and rollback remain outside the
+
+51
+00:02:59,606 --> 00:03:04,261
+established result The source mathematical paper and reproducible
+
+52
+00:03:04,261 --> 00:03:06,106
+evidence are available for review

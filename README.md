@@ -4,6 +4,23 @@
 
 Cryptographer track only. Research prototype, version 0.2.0.
 
+## Watch the narrated demo
+
+**3 minutes 8 seconds · spoken explanation · English captions**
+
+https://github.com/user-attachments/assets/82868f82-3ca0-45c1-8ffd-98cacb702b19
+
+[Watch on YouTube (Unlisted)](https://youtu.be/nHYJd-8BGlc) ·
+[MP4 file](media/narrated/PrismGuard-32-narrated-demo.mp4) ·
+[Transcript](media/narrated/transcript.md) · [Captions](media/narrated/captions.srt)
+
+The walkthrough explains the construction, bounded recovery, protected
+arithmetic, exact experiments, and limitations. Its terminal scene uses an
+excerpt of actual captured Rust output. The original silent walkthrough is
+also retained under `media/`.
+
+## The project
+
 PrismGuard-32 asks a concrete question: can a short key-capsule protocol keep
 its private arithmetic in randomized shares, authenticate without exposing a
 raw tag difference, and tolerate several hostile packets before recovery?
