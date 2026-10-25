@@ -124,6 +124,7 @@ are included. These are observations from one run, not promises of throughput.
 - `docs/SECURITY.md`: threat model, proof scope, prior work, and attack findings.
 - `docs/paper/main.tex`: precise construction, masking schedule, and proofs.
 - `docs/DEVPOST.md`: submission narrative with rendered-math syntax.
+- `docs/DEVPOST-PUBLISHED.md`: the saved Devpost body with reviewer links and platform-specific inline-math escaping.
 - `evidence/verification.json`: complete aggregate results.
 - `tools/reference.py`: independent oracle and explicit reuse attack.
 - `tools/audit.rs`: exact generic-gadget audit and synthetic mutation campaign.

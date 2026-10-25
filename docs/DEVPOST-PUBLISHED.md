@@ -25,25 +25,25 @@ system settings.
 
 ## Mathematical construction
 
-Let \(p=2^{61}-1\), encode the key as eight 32-bit words
-\(m\in\mathbb F_p^8\), and let \(A=I+\mathbf1\mathbf1^T\). With a new
-uniform mask \(r\leftarrow\mathbb F_p^8\), compute
+Let \\(p=2^{61}-1\\), encode the key as eight 32-bit words
+\\(m\in\mathbb F_p^8\\), and let \\(A=I+\mathbf1\mathbf1^T\\). With a new
+uniform mask \\(r\leftarrow\mathbb F_p^8\\), compute
 
 $$c=A\left((Am+r)^{[17]}\right).$$
 
 The exponent is coordinatewise. The matrix is invertible, with
-\(A^{-1}=I-9^{-1}\mathbf1\mathbf1^T\), and \(17\) is coprime to \(p-1\).
+\\(A^{-1}=I-9^{-1}\mathbf1\mathbf1^T\\), and \\(17\\) is coprime to \\(p-1\\).
 Fresh full-entropy masking supplies the confidentiality argument; the public
 matrix and power maps do not add entropy or cryptographic hardness.
 
 Two independently keyed and masked polynomial tags authenticate an injective
 encoding of the version, identifier, context byte length, context bytes, and
-ciphertext. For \(T=(t_1,\ldots,t_N)\), \(N\le51\),
+ciphertext. For \\(T=(t_1,\ldots,t_N)\\), \\(N\le51\\),
 
 $$H_\alpha(T)=\alpha^{N+1}+\sum_{j=1}^N t_j\alpha^{N+1-j},\qquad
 \tau_\ell=H_{\alpha_\ell}(T)+\beta_\ell\pmod p.$$
 
-The final multiplication by \(\alpha\) is essential: no message coefficient
+The final multiplication by \\(\alpha\\) is essential: no message coefficient
 is an unkeyed constant term. Under ideal independent one-use material, the
 public capsule distribution is independent of the key. For at most eight
 public substitution attempts, the conservative union bound is
@@ -57,7 +57,7 @@ the ideal randomness assumption computationally.
 
 ## The protected computation
 
-Each private field value is represented as \(x=x_L+x_R\pmod p\). Binary
+Each private field value is represented as \\(x=x_L+x_R\pmod p\\). Binary
 operations refresh shares before use, including independently refreshing both
 inputs to squaring. A shared multiplication computes
 
@@ -67,13 +67,13 @@ w_{10}&=(a-U)V,&w_{11}&=(a-U)(b-V),\\
 z_L&=w_{00}+\rho,&z_R&=((w_{01}-\rho)+w_{10})+w_{11}.
 \end{aligned}$$
 
-Here \(U,V,\rho\) are fresh independent uniform values. The explicit schedule
+Here \\(U,V,\rho\\) are fresh independent uniform values. The explicit schedule
 avoids accumulating unmasked cross terms. Each observed individual field wire
 has an input-independent distribution in the stated arithmetic model. The
 same generic multiplier schedule runs over the production field and the exact
 small-field audit.
 
-Tag differences also stay shared. Fermat's map \(\Delta^{p-1}\) produces a
+Tag differences also stay shared. Fermat's map \\(\Delta^{p-1}\\) produces a
 nonzero bit; two such bits are combined in shares. Only the final rejection
 bit is released. Authenticated plaintext crosses a separate, explicit release
 boundary. This is more specific than claiming that branch-free-looking source
@@ -94,7 +94,7 @@ alone prevents side channels.
 - **2,000 reproducible multi-bit mutations** rejected, with valid recovery
   afterward. This is a synthetic mutation campaign, not coverage-guided fuzzing.
 - **78,125 exact multiplier executions in each of Rust and Python.** The Rust
-  model compares 19 wires across all 25 input pairs over \(\mathbb F_5\),
+  model compares 19 wires across all 25 input pairs over \\(\mathbb F_5\\),
   with zero distribution mismatches.
 - A deliberately unsafe cross-term sum is distinguishable with **exact
   total-variation distance 0.20**. Two output shares reconstruct the product,

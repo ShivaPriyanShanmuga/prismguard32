@@ -53,6 +53,11 @@ The saved assembly is target-specific. The shape checker checks selected
 function bodies for conditional jumps and integer division; it is not a
 constant-time dataflow verifier and does not inspect a physical device.
 
+Devpost's Markdown layer requires doubled backslashes around inline math
+(`\\(...\\)`). `docs/DEVPOST-PUBLISHED.md` records the saved, rendered body,
+including reviewer links and figures. The preview was checked for rendered
+inline/display equations and loaded images. Display equations use `$$...$$`.
+
 The latest benchmark summary and the earlier summary are both retained.
 Full-workflow medians differed (60.5 us and 88.5 us), illustrating ordinary
 variation in OS randomness, scheduling, and environment. Do not interpret one
