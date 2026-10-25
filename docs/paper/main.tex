@@ -363,6 +363,39 @@ $(1,2,0,0,2)$ and $(2,0,0,2,1)$. Their exact total-variation distance is $0.60$.
 This negative control explains why refreshing both inputs matters. These
 experiments remain gadget checks, not whole-protocol or hardware proofs.
 
+\section{Applicable environment: signing-key recovery desk}
+An offline Rust application uses the capsule to protect the 32-byte private
+scalar $d$ of a newly generated P-256 signing identity, with public key $Q=dG$.
+The context binds a version, synthetic site identity, and the SHA-256
+fingerprint of the public key. The original provider private handle, exported
+private blob, and enrollment sharing are disposed of before recovery begins.
+
+After authenticated recovery, the application consumes the recovered scalar
+in a real Windows CNG ECDSA signature operation~\cite{cng,nistdss}. Its public
+request encoding is a versioned domain, a fresh 16-byte nonce, a fixed-width
+resource code and an action byte. The issuer checks the expected request
+before consuming the scalar. A controller holding only $Q$ verifies the
+request policy and signature before granting a single synthetic training
+request. This is a signature and verified state change, rather than a check
+that recovered bytes equal a known fixture.
+
+Invalid passes do not consume the pending grant. Successful verification
+consumes the nonce, so replay cannot grant another request. The state is keyed
+to the challenge, not signature bytes: the alternate valid ECDSA encoding
+$(r,n-s)$ cannot bypass consumption. The application verifier checks 26 combined
+Rust groups (14 core and 12 application), 32 independently verified public
+passes and alternate encodings, altered-message/signature controls, wrong
+context/key/resource/nonce/action, issuance policy, and the interactive desk.
+
+The established signature and hash functions consume the recovered key after
+the capsule's authorized-release boundary. They are additional application
+assumptions, not a substitute encryption construction or an extension of the
+capsule probing proof to provider internals. No joint numerical forgery bound,
+physical isolation, durable replay ledger or deployed access controller is
+claimed. All roles are in one process and all grants are synthetic. The
+normal application has no filesystem, networking, registry, account or device
+actions. Trusted provisioning and endpoint security remain external.
+
 \section{Trust boundaries and remaining work}
 Trusted ingress/provisioning handles raw values. Authorized release returns
 the recovered master key. The arithmetic result does not cover two probes,
@@ -383,6 +416,10 @@ No independent human cryptographic audit or physical test campaign has occurred.
 Organizer acceptance and winning cannot be guaranteed.
 
 \begin{thebibliography}{9}
+\bibitem{cng}Microsoft, \emph{BCryptSignHash and BCryptVerifySignature}.
+\url{https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptsignhash}
+\bibitem{nistdss}NIST, \emph{Digital Signature Standard}, FIPS 186-5, 2023.
+\url{https://doi.org/10.6028/NIST.FIPS.186-5}
 \bibitem{isw}Y. Ishai, A. Sahai, D. Wagner,
 \emph{Private Circuits: Securing Hardware against Probing Attacks}, CRYPTO 2003.
 \url{https://iacr.org/archive/crypto2003/27290462/27290462.pdf}

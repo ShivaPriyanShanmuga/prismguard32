@@ -23,6 +23,35 @@ The default demo uses memory and OS randomness only. It does not encrypt user
 files, scan the machine, access real credentials, contact a server, or change
 system settings.
 
+## Applicable environment: Recovery Desk
+
+[Watch the narrated application demo — 1:36](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-recovery-desk-application).
+
+The capsule is also integrated into an offline Rust signing-key recovery
+application. Windows CNG enrolls a P-256 signing identity; PrismGuard encrypts
+its 32-byte private scalar. Original enrollment handles and shares are dropped.
+After successful capsule recovery, the scalar signs a fresh, resource-bound
+synthetic training-access pass. A controller holding **only the public key**
+verifies that signature before granting one request. This is an actual
+signature operation and application state change.
+
+The interactive desk denies issuance before recovery, rejects altered capsules,
+rejects modified or wrong-resource passes, grants the genuine request, and
+blocks replay and second issuance. Its context binds the site and public-key
+fingerprint. Replay state tracks the challenge, so alternate valid ECDSA
+signature encodings cannot create a second grant.
+
+There are **26 combined Rust test groups: 14 core and 12 application groups**.
+An independent Python verifier checks **32 public passes and 32 alternate
+valid encodings**, including altered-message and altered-signature controls.
+The actual interactive workflow is also exercised.
+[Application source, instructions, and scope](https://github.com/ShivaPriyanShanmuga/prismguard32/tree/main/apps/recovery-desk)
+and [retained application evidence](https://github.com/ShivaPriyanShanmuga/prismguard32/tree/main/evidence/recovery-desk)
+are included. CNG provides established signatures after authorized release;
+the capsule's probing argument does not certify the provider. All requests
+and grants are synthetic, all roles share one process, and durable rollback
+protection and confidential provisioning remain outside this prototype.
+
 ## Mathematical construction
 
 Let \\(p=2^{61}-1\\), encode the key as eight 32-bit words

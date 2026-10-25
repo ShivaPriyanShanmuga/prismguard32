@@ -1,0 +1,115 @@
+1
+00:00:00,445 --> 00:00:03,005
+The recovery desk gives the protected key a
+
+2
+00:00:03,017 --> 00:00:06,410
+real application job A fresh signing key is
+
+3
+00:00:06,421 --> 00:00:09,529
+wrapped in a Prism Guard capsule After authenticated
+
+4
+00:00:09,540 --> 00:00:12,862
+recovery it signs a synthetic training access pass
+
+5
+00:00:13,231 --> 00:00:16,433
+A separate controller verifies that pass using only
+
+6
+00:00:16,445 --> 00:00:17,255
+the public key
+
+7
+00:00:18,892 --> 00:00:21,534
+This is actual captured output from the application
+
+8
+00:00:21,927 --> 00:00:25,094
+Issuing a pass before recovery is denied Three
+
+9
+00:00:25,094 --> 00:00:28,130
+altered capsules are rejected and signing stays locked
+
+10
+00:00:28,511 --> 00:00:31,142
+The genuine capsule then restores the signing key
+
+11
+00:00:31,249 --> 00:00:33,130
+and makes the desk ready to issue one
+
+12
+00:00:33,142 --> 00:00:33,761
+pass
+
+13
+00:00:35,445 --> 00:00:37,981
+The recovered key now performs a real signature
+
+14
+00:00:37,981 --> 00:00:41,410
+operation through Windows An altered signature and a
+
+15
+00:00:41,410 --> 00:00:44,826
+wrong resource are rejected The genuine signed pass
+
+16
+00:00:44,838 --> 00:00:48,993
+grants one synthetic request Replaying the pass or
+
+17
+00:00:49,112 --> 00:00:51,552
+asking the desk for another signature is blocked
+
+18
+00:00:53,225 --> 00:00:56,915
+Twenty six combined Rust test groups pass Python
+
+19
+00:00:56,927 --> 00:01:01,523
+independently verifies thirty two fresh public signatures and
+
+20
+00:01:01,523 --> 00:01:04,558
+their alternate valid encodings The controller tracks the
+
+21
+00:01:04,558 --> 00:01:07,380
+challenge rather than signature bytes so changing the
+
+22
+00:01:07,392 --> 00:01:11,558
+signature encoding cannot produce another grant The interactive
+
+23
+00:01:11,558 --> 00:01:13,558
+application is tested as well
+
+24
+00:01:15,249 --> 00:01:18,189
+Prism Guard encrypts the key Windows provides the
+
+25
+00:01:18,201 --> 00:01:22,844
+established signature operation after authorized recovery That provider
+
+26
+00:01:22,975 --> 00:01:26,058
+is outside the capsule leakage proof All data
+
+27
+00:01:26,070 --> 00:01:28,892
+and grants are synthetic and all roles currently
+
+28
+00:01:28,892 --> 00:01:33,023
+share one process No real file credential device
+
+29
+00:01:33,023 --> 00:01:35,070
+permission or account is affected

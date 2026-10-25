@@ -1,0 +1,20 @@
+PRISMGUARD RECOVERY DESK | OFFLINE APPLICATION
+Synthetic training passes; no real credentials, devices or files.
+
+[1] Enrolled a CNG P-256 signing key; protected its 32-byte scalar in a PrismGuard capsule.
+    Public identity: ef0533dad92e60f8
+    Original private provider handle, export blob and enrollment shares are dropped.
+[2] Issue training pass before recovery: DENIED
+[3.1] Altered capsule: REJECTED; signing remains locked
+[3.2] Altered capsule: REJECTED; signing remains locked
+[3.3] Altered capsule: REJECTED; signing remains locked
+[4] Authenticated recovery: READY TO ISSUE
+[5] Recovered scalar used by CNG to sign a nonce-bound bench-7 request: 64-byte signature
+[6] Altered signed pass: REJECTED; challenge remains pending
+[7] Wrong-resource pass: REJECTED
+[8] Controller verifies with PUBLIC KEY ONLY -> TRAINING PASS GRANTED: synthetic bench 7
+[9] Pass replay and second issuance: BLOCKED; total grants = 1
+
+Protected action is a real signature and verified state change, not a recovered-byte equality test.
+CNG signatures run after authorized release; the capsule probing model does not certify CNG.
+All roles are simulated in one process. Provisioning and restart/rollback protection remain external.

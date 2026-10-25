@@ -125,6 +125,42 @@ duplicates logical material for sender/receiver. Raw ingestion/provisioning
 temporaries belong to the trusted boundary. RNG failures return an error;
 there is no deterministic fallback. Rare rejection loops are bounded.
 
+## Application integration boundary
+
+Recovery Desk uses the unchanged capsule core to encrypt the 32-byte scalar of
+a fresh CNG ECDSA P-256 signing identity. It binds the synthetic site and the
+SHA-256 public-key fingerprint in the context. Trusted enrollment disposes of
+the original private provider handle, export blob, and scalar-sharing object.
+After successful recovery, one signing attempt consumes the owned scalar.
+The controller has only the public key and the expected public challenge.
+
+The request encodes a versioned domain, nonce, fixed-width resource and action.
+The issuer checks expected policy before signing. The controller validates
+policy and the signature before consuming the nonce. A bad pass cannot consume
+the pending grant; any pass after successful consumption is rejected, even if
+its signature uses a different mathematically valid encoding. This matters
+because ECDSA admits the alternate encoding (r,n-s).
+
+Application verification adds 12 test groups to the 14 existing core groups.
+Python independently verifies 32 public signatures and alternate encodings,
+including altered-message/signature controls. These are functional and
+integration checks. The independent verifier is not an operational signer.
+
+The capsule probing claim ends at authorized scalar release. CNG import,
+signature nonce generation, native key state, signing and OS cleanup are
+trusted application operations, outside that proof. No end-to-end numerical
+forgery bound is inferred by combining the capsule bound with ECDSA. The
+application assumes a sound signature/hash implementation and protection of
+the released key. Standard signatures are credited consumers of that key;
+they do not replace the submitted encryption algorithm.
+
+All roles are in one process; no physical separation or deployed controller is
+claimed. No key or receiver material is persisted, and no real credentials,
+files, devices or permissions are accessed. Fresh enrollment after restart is
+not durable recovery or anti-rollback protection. The provider and temporary
+secret blob have cleanup paths, with the same limits concerning copies/spills
+and crash dumps as the core. See the application guide for API references.
+
 ## Prior work
 
 The masked multiplication is a two-share arithmetic construction in the family

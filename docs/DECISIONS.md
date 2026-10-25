@@ -32,7 +32,7 @@ that a new hard cryptographic problem has been discovered.
 | Attack surface | Shared nonlinear arithmetic; masked tag comparison; canonical parser; ownership; bounded retries | Trusted endpoints, hardware leakage, rollback, and multi-probe attacks remain outside claims |
 | LaTeX | Compiled full technical paper and mathematical Devpost narrative | Judges must be able to access the paper/source |
 | Low-level code | Dependency-free Rust | One compiler/target tested |
-| Application | In-memory vault recovery after adversarial packets; replay rejection; terminal lab | Synthetic application, no deployed vault or actual user secrets |
+| Application | Recovery Desk: the recovered scalar signs a pass; public-key-only controller grants one nonce-bound request; interactive Rust workflow and independent verification | Synthetic single-process training environment; no deployed controller or durable rollback ledger |
 | Video | Generated captioned local walkthrough and project gallery | Hosting/publication is a separate external action |
 
 ## Reuse and availability

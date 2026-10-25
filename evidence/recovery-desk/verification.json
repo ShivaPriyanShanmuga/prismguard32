@@ -1,0 +1,28 @@
+{
+  "application": "PrismGuard Recovery Desk",
+  "test_groups": 26,
+  "core_test_groups": 14,
+  "application_test_groups": 12,
+  "public_passes_independently_verified": 32,
+  "alternate_valid_signatures_verified": 32,
+  "altered_message_and_signature_rejections": 64,
+  "replay_and_alternate_encoding_rejections": 64,
+  "interactive_workflow_checked": true,
+  "controller_has_only_public_verification_key": true,
+  "core_sources_unchanged": true,
+  "private_keys_exported_in_evidence": false,
+  "normal_application_file_network_or_settings_actions": false,
+  "signatures": "Windows CNG ECDSA P-256 over SHA-256 after authorized scalar recovery",
+  "scope": "Real signature operation and public-key-verified synthetic access decision. Single-process prototype; no physical access, durable replay ledger, endpoint protection or provider leakage proof.",
+  "source_sha256": {
+    "apps/recovery-desk/main.rs": "c593f64f95e6f2e3064962af0bb2439ea6910cdf28be390127ba8d3b2891fba3",
+    "apps/recovery-desk/app.rs": "c1e0e84badd803ba8a2e356d9b5b645bdf3d0d31abbeb1d0e28c36a3d272308b",
+    "apps/recovery-desk/cng.rs": "f4236ab9650eea1a9e02c58bb29df44d981a9277f6ede4cd09555adb92b2b8fd",
+    "tools/recovery_desk_verify.py": "5a6a8dba9dd558026e4640aaf91c326833e58df1c32117ffed69e187d67f0de2"
+  },
+  "references": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptsignhash",
+    "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf",
+    "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-186.pdf"
+  ]
+}

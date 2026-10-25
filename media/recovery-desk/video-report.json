@@ -1,0 +1,102 @@
+{
+  "video": "PrismGuard-Recovery-Desk-demo.mp4",
+  "voice": "en-US-AndrewMultilingualNeural",
+  "rate": "+5%",
+  "speech_service": "Microsoft online neural speech via edge-tts",
+  "client_version": "7.3.1",
+  "scenes": [
+    {
+      "scene": 1,
+      "speech_seconds": 17.256,
+      "words": 43,
+      "speech_words_per_minute": 149.5,
+      "scene_seconds": 18.458333333333332,
+      "audio_sha256": "c2ce26b971096937b6151deaa6746606c87316c559dc7e3c2fbdcd011d1ee431"
+    },
+    {
+      "scene": 2,
+      "speech_seconds": 15.312,
+      "words": 41,
+      "speech_words_per_minute": 160.7,
+      "scene_seconds": 16.541666666666668,
+      "audio_sha256": "c719d553840380b7851a310b7581bef14f170f55e5f87a287446178b19e32cf1"
+    },
+    {
+      "scene": 3,
+      "speech_seconds": 16.56,
+      "words": 40,
+      "speech_words_per_minute": 144.9,
+      "scene_seconds": 17.791666666666668,
+      "audio_sha256": "c749b8828bfea4410d02c08424a238348ac2a834e1468df229573439e5f1ca6d"
+    },
+    {
+      "scene": 4,
+      "speech_seconds": 20.76,
+      "words": 45,
+      "speech_words_per_minute": 130.1,
+      "scene_seconds": 22.0,
+      "audio_sha256": "c99f0bf4d8030ded5fe526ed2a717af4d9d8e4ecaafa9c237019c2afbfb0b314"
+    },
+    {
+      "scene": 5,
+      "speech_seconds": 20.28,
+      "words": 45,
+      "speech_words_per_minute": 133.1,
+      "scene_seconds": 21.5,
+      "audio_sha256": "615b77237d27d4b031b7961c86d502c1cc846d6afaa13a492336b2cd40368331"
+    }
+  ],
+  "chapters": [
+    {
+      "scene": 1,
+      "title": "A recovered key that does something",
+      "start_seconds": 0.0,
+      "duration_seconds": 18.458333333333332
+    },
+    {
+      "scene": 2,
+      "title": "Recovery gates the signing operation",
+      "start_seconds": 18.458,
+      "duration_seconds": 16.541666666666668
+    },
+    {
+      "scene": 3,
+      "title": "The controller makes a verified decision",
+      "start_seconds": 35.0,
+      "duration_seconds": 17.791666666666668
+    },
+    {
+      "scene": 4,
+      "title": "Independent application evidence",
+      "start_seconds": 52.792,
+      "duration_seconds": 22.0
+    },
+    {
+      "scene": 5,
+      "title": "The application boundary is explicit",
+      "start_seconds": 74.792,
+      "duration_seconds": 21.5
+    }
+  ],
+  "duration_seconds": 96.4,
+  "size_bytes": 2126545,
+  "video_sha256": "be2bdcd04d3623b277ff4125c138f8e351fa7ce25ecc3ee2eb3141f6de0ac6c0",
+  "scene_lead_seconds": 0.35,
+  "minimum_scene_tail_seconds": 0.85,
+  "loudness_normalization": {
+    "input_i": "-21.25",
+    "input_tp": "-5.43",
+    "input_lra": "3.60",
+    "input_thresh": "-31.74",
+    "output_i": "-15.99",
+    "output_tp": "-1.50",
+    "output_lra": "3.50",
+    "output_thresh": "-26.45",
+    "normalization_type": "dynamic",
+    "target_offset": "-0.01"
+  },
+  "subtitle_source": "speech-service word timestamps",
+  "scope": "Narrated application addendum with actual captured application output; not a continuous screen recording.",
+  "original_silent_video_preserved": true,
+  "core_crypto_sources_changed": false
+}

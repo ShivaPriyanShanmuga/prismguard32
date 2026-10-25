@@ -27,6 +27,23 @@ The default demo uses memory and OS randomness only. It does not encrypt user
 files, scan the machine, access real credentials, contact a server, or change
 system settings.
 
+## Applicable environment: Recovery Desk
+
+[Watch the narrated application demo — 1:36](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-recovery-desk-application).
+
+An offline Rust application now uses PrismGuard to protect the 32-byte private
+scalar of a Windows CNG P-256 signing identity. After authenticated recovery,
+the scalar signs a nonce-bound synthetic access pass; a controller holding only
+the public key verifies it before granting exactly one request. It rejects
+altered capsules, modified/wrong-resource passes, premature issuance, and
+replay. The interactive desk performs actual signing and public verification.
+There are 26 combined Rust groups (14 core + 12 application), 32 independently
+verified public passes, and 32 alternate valid encodings checked for replay.
+See [the application guide](https://github.com/ShivaPriyanShanmuga/prismguard32/tree/main/apps/recovery-desk).
+All actions are synthetic and in one process. CNG signatures follow authorized
+release and are outside the capsule probing proof; provisioning and durable
+rollback protection remain external.
+
 ## Mathematical construction
 
 Let \(p=2^{61}-1\), encode the key as eight 32-bit words

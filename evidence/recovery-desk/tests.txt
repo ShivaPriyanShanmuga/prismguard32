@@ -1,0 +1,31 @@
+
+running 26 tests
+test app::tests::standard_sha256_and_public_blob_format_are_checked ... ok
+test app::tests::signature_operation_requires_successful_recovery ... ok
+test app::tests::entropy_shortage_never_unlocks_or_consumes_a_capsule_attempt ... ok
+test app::tests::real_recovered_key_signs_and_public_controller_grants ... ok
+test app::tests::receipts_and_issuance_are_one_shot ... ok
+test app::tests::altered_signature_does_not_consume_pending_challenge ... ok
+test app::tests::tampered_capsule_cannot_unlock_application ... ok
+test app::tests::controller_with_different_public_key_does_not_grant ... ok
+test app::tests::eight_bad_capsules_lock_the_application ... ok
+test app::tests::wrong_public_key_context_prevents_recovery ... ok
+test prism::tests::authenticated_out_of_domain_plaintext_rejected ... ok
+test app::tests::wrong_nonce_or_action_is_rejected ... ok
+test prism::tests::blinding_randomness_does_not_change_wire_format ... ok
+test app::tests::wrong_request_does_not_consume_recovered_key_or_pending_challenge ... ok
+test prism::tests::field_boundaries ... ok
+test prism::tests::entropy_shortage_does_not_consume_attempt ... ok
+test prism::tests::masked_correlated_operations ... ok
+test prism::tests::final_coefficient_additive_forgery_rejected ... ok
+test prism::tests::eighth_failure_locks_and_wipes ... ok
+test prism::tests::real_os_entropy_roundtrip ... ok
+test prism::tests::wrong_receiver_and_context_are_rejected ... ok
+test prism::tests::context_boundaries_and_entropy_budget ... ok
+test prism::tests::seven_bad_packets_then_recovery ... ok
+test prism::tests::malformed_input_and_noncanonical_tags ... ok
+test prism::tests::all_byte_values_roundtrip ... ok
+test prism::tests::every_bit_mutation_rejected ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.55s
+

@@ -1,0 +1,50 @@
+PRISMGUARD RECOVERY DESK | Interactive synthetic workflow
+No real lab, OS permission, file or account is affected.
+
+Desk: AwaitingRecovery(Ready { attempts_left: 8 }) | controller grants: 0 | pass issued: false
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Issuance denied: NotRecovered
+
+Desk: AwaitingRecovery(Ready { attempts_left: 8 }) | controller grants: 0 | pass issued: false
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Recovery result: Err(Capsule(Rejected))
+
+Desk: AwaitingRecovery(Ready { attempts_left: 7 }) | controller grants: 0 | pass issued: false
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Recovery result: Ok(())
+
+Desk: ReadyToIssue | controller grants: 0 | pass issued: false
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Signed pass: b990dc62e6357d8b0792a5f234c561b7fddb32a59a2554f5fdd7b6754f84fff6529c6ec4b256c31130869903e2ddad2c4c08eb789f24d00ca2f0ddbcfcf8b8e3
+
+Desk: Spent | controller grants: 0 | pass issued: true
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Controller: Err(InvalidSignature)
+
+Desk: Spent | controller grants: 0 | pass issued: true
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Controller: Ok("TRAINING PASS GRANTED: synthetic bench 7")
+
+Desk: Spent | controller grants: 1 | pass issued: true
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> Controller: Err(NoPendingChallenge)
+
+Desk: Spent | controller grants: 1 | pass issued: true
+Synthetic resource: bench 7 | challenge c31e6598e8c263ae04a946ab43c7cb51
+[1] altered capsule  [2] recover genuine capsule  [3] issue pass
+[4] submit pass  [5] alter signature and submit  [n] new enrollment  [q] quit
+> 

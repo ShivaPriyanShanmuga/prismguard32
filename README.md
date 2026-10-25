@@ -4,6 +4,19 @@
 
 Cryptographer track only. Research prototype, version 0.2.0.
 
+## Watch the Recovery Desk application
+
+**1 minute 36 seconds · narrated · actual captured application output**
+
+https://github.com/user-attachments/assets/6f3dda6d-c552-4563-a0ae-01468a49cb1a
+
+Recover a signing key, sign a fresh request, verify with only the public key,
+grant one synthetic training pass, and reject tampering and replay.
+
+[Application guide](apps/recovery-desk/README.md) ·
+[MP4](media/recovery-desk/PrismGuard-Recovery-Desk-demo.mp4) ·
+[Transcript](media/recovery-desk/transcript.md) · [Captions](media/recovery-desk/captions.srt)
+
 ## Watch the narrated demo
 
 **3 minutes 8 seconds · spoken explanation · English captions**
@@ -20,6 +33,27 @@ excerpt of actual captured Rust output. The original silent walkthrough is
 also retained under `media/`.
 
 ## The project
+
+**Applicable environment: [Recovery Desk](apps/recovery-desk/README.md).**
+The capsule now protects a real 32-byte signing scalar. After authenticated
+recovery, an offline Rust application uses that scalar to sign a nonce-bound
+synthetic access pass. A controller holding only the public verification key
+checks the pass and grants exactly one training request. Tampering and replay
+are rejected. The established CNG signature operation consumes the recovered
+key after authorized release; PrismGuard remains the encryption algorithm.
+
+```powershell
+rustc --edition=2021 -D warnings -C opt-level=3 -C overflow-checks=yes apps/recovery-desk/main.rs -o build/recovery-desk.exe
+.\build\recovery-desk.exe demo
+.\build\recovery-desk.exe desk
+python tools/recovery_desk_verify.py
+```
+
+The application has 26 combined Rust test groups (14 existing core + 12 new
+application groups) and 32 independently verified public pass vectors. It
+accepts no real credentials, user files, device addresses or actual access
+targets. All roles are currently in one process, with no durable replay ledger.
+The original five core source files remain unchanged.
 
 PrismGuard-32 asks a concrete question: can a short key-capsule protocol keep
 its private arithmetic in randomized shares, authenticate without exposing a

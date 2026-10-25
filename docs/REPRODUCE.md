@@ -73,7 +73,35 @@ Full-workflow medians differed (60.5 us and 88.5 us), illustrating ordinary
 variation in OS randomness, scheduling, and environment. Do not interpret one
 run's median as a stable throughput guarantee.
 
+## Recovery Desk application
+
+```powershell
+python tools/recovery_desk_verify.py
+.\build\recovery-desk.exe demo
+.\build\recovery-desk.exe desk
+```
+
+The application verifier builds the Windows Rust program and runs 26 combined
+core/application test groups, actual interactive commands, and 32 public pass
+vectors. Its independent Python big-integer verifier checks ECDSA signatures,
+alternate valid encodings, altered messages/signatures, and expected controller
+results. It installs nothing. It writes new results under
+`evidence/recovery-desk/`. The application itself only uses memory, terminal
+input/output, OS randomness and installed Windows CNG cryptography.
+
+The private scalar is encrypted by the existing capsule algorithm and used by
+CNG for a real signature after recovery. The controller has only a public key.
+It does not grant actual machine or device access. Windows CNG is required;
+there is no unreviewed fallback implementation or non-Windows claim.
+Full scope and trusted boundaries are in `apps/recovery-desk/README.md`.
+
 ## Media
+
+The separate `tools/recovery_desk_media.py` uses the same narration pipeline
+to produce the 96-second application clip under `media/recovery-desk/`.
+Its cards include actual captured `evidence/recovery-desk/demo-output.txt`
+excerpts. This is an explained output walkthrough, not a continuous screen recording.
+English captions, the transcript, timing/loudness report, and hosting link are retained.
 
 The PNGs, original 135-second silent MP4, and 3:08 narrated MP4 are provided.
 They are constructed walkthroughs with an excerpt of actual captured demo

@@ -26,6 +26,9 @@ VOICE = 'en-US-AndrewMultilingualNeural'
 RATE = '+5%'
 LEAD = .35
 TAIL = .85
+VIDEO_NAME = 'PrismGuard-32-narrated-demo.mp4'
+DEMO_TITLE = 'PrismGuard-32 narrated demonstration'
+SCOPE = 'Narrated caption-card walkthrough with actual captured demo excerpt; not a continuous screen recording.'
 SCENES = [
     ('A masked master-key capsule',
      'Prism Guard thirty two is a master key capsule and recovery laboratory. '
@@ -90,9 +93,9 @@ async def synthesize():
         audio, meta, receipt = BUILD/f'{name}.mp3', BUILD/f'{name}.jsonl', BUILD/f'{name}-receipt.json'
         requested = {'text': speech, 'voice': VOICE, 'rate': RATE, 'edge_tts': edge_tts.__version__}
         if receipt.exists() and json.loads(receipt.read_text()) == requested and audio.exists() and meta.exists():
-            print(f'Reusing verified narration {i}/9.', flush=True)
+            print(f'Reusing verified narration {i}/{len(SCENES)}.', flush=True)
             continue
-        print(f'Generating narration {i}/9...', flush=True)
+        print(f'Generating narration {i}/{len(SCENES)}...', flush=True)
         await edge_tts.Communicate(speech, VOICE, rate=RATE, boundary='WordBoundary').save(str(audio), str(meta))
         assert audio.stat().st_size > 10000
         receipt.write_text(json.dumps(requested, indent=2)+'\n', encoding='utf-8')
@@ -142,7 +145,7 @@ def main():
             subtitle_id += 1
             captions.append(f'{subtitle_id}\n{stamp(start)} --> {stamp(end)}\n'+ ' '.join(w['text'] for w in group)+'\n')
         target = BUILD/f'scene-{i:02d}.mp4'
-        print(f'Encoding scene {i}/9: {duration:.2f} seconds, {wpm:.0f} words/minute.', flush=True)
+        print(f'Encoding scene {i}/{len(SCENES)}: {duration:.2f} seconds, {wpm:.0f} words/minute.', flush=True)
         subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-loop', '1',
             '-i', str(BUILD/f'scene-{i:02d}.png'), '-i', str(audio), '-t', str(duration),
             '-vf', 'fps=24,format=yuv420p', '-af', 'adelay=350,apad',
@@ -154,7 +157,7 @@ def main():
                         'audio_sha256': hashlib.sha256(audio.read_bytes()).hexdigest()})
         elapsed += duration
     concat = BUILD/'scenes.ffconcat'
-    concat.write_text('ffconcat version 1.0\n'+''.join(f"file 'scene-{i:02d}.mp4'\n" for i in range(1,10)), encoding='ascii')
+    concat.write_text('ffconcat version 1.0\n'+''.join(f"file 'scene-{i:02d}.mp4'\n" for i in range(1,len(SCENES)+1)), encoding='ascii')
     assembled = BUILD/'assembled.mp4'
     subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','1',
                     '-i',str(concat),'-c','copy','-movflags','+faststart',str(assembled)], check=True)
@@ -171,7 +174,7 @@ def main():
         f"measured_I={loudness['input_i']}:measured_TP={loudness['input_tp']}:"
         f"measured_LRA={loudness['input_lra']}:measured_thresh={loudness['input_thresh']}:"
         f"offset={loudness['target_offset']}:print_format=json")
-    video = OUT/'PrismGuard-32-narrated-demo.mp4'
+    video = OUT/VIDEO_NAME
     normalized = subprocess.run(['ffmpeg','-hide_banner','-y','-i',str(assembled),'-i',str(synchronized),
         '-map','0:v:0','-map','1:a:0','-c:v','copy','-af',normalizer,'-c:a','aac','-b:a','128k','-ar','48000',
         '-movflags','+faststart',str(video)],capture_output=True,text=True,check=True)
@@ -181,7 +184,7 @@ def main():
     assert -17 <= float(normalized_loudness['output_i']) <= -15
     assert float(normalized_loudness['output_tp']) <= -1.4
     (OUT/'captions.srt').write_text('\n'.join(captions), encoding='utf-8', newline='\n')
-    (OUT/'transcript.md').write_text('# PrismGuard-32 narrated demonstration\n\n'+
+    (OUT/'transcript.md').write_text('# '+DEMO_TITLE+'\n\n'+
         '\n\n'.join(f'## {i}. {title}\n\n{speech}' for i,(title,speech) in enumerate(SCENES,1))+'\n',encoding='utf-8',newline='\n')
     final = probe(video)
     assert len([s for s in final['streams'] if s['codec_type']=='video']) == 1
@@ -195,7 +198,7 @@ def main():
               'scene_lead_seconds': LEAD, 'minimum_scene_tail_seconds': TAIL,
               'loudness_normalization': normalized_loudness,
               'subtitle_source': 'speech-service word timestamps',
-              'scope': 'Narrated caption-card walkthrough with actual captured demo excerpt; not a continuous screen recording.',
+              'scope': SCOPE,
               'original_silent_video_preserved': True, 'core_crypto_sources_changed': False}
     (OUT/'video-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({k:report[k] for k in ['video','voice','duration_seconds','size_bytes','video_sha256']},indent=2),flush=True)
