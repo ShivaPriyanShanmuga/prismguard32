@@ -1,6 +1,8 @@
 ![PrismGuard-32: masked key capsules](https://raw.githubusercontent.com/ShivaPriyanShanmuga/prismguard32/main/media/cover-3x2.png)
 
-**Reviewer resources:** [Source and reproduction instructions](https://github.com/ShivaPriyanShanmuga/prismguard32) · [Technical paper in LaTeX](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/paper/main.tex) · [Narrated demo on YouTube — 3:08, English captions](https://youtu.be/nHYJd-8BGlc) · [GitHub video player and transcript](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-narrated-demo)
+**Cryptographer track · Rust research prototype · version 0.2.0**
+
+**Reviewer resources:** [Application demo — 1:36, narrated](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-recovery-desk-application) · [Construction demo on YouTube — 3:08, English captions](https://youtu.be/nHYJd-8BGlc) · [Source and reproduction instructions](https://github.com/ShivaPriyanShanmuga/prismguard32) · [Technical paper in LaTeX](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/paper/main.tex)
 
 ## Inspiration
 
@@ -13,8 +15,14 @@ destroy the first opportunity for legitimate recovery.
 
 ## What it does
 
-The Rust application wraps a synthetic 32-byte master key in a 104-byte
-authenticated capsule. A UTF-8 vault context is bound to it. The terminal lab
+PrismGuard-32 encrypts a 32-byte master key in a 104-byte authenticated capsule.
+It keeps private arithmetic in randomized shares and checks authentication
+before releasing the recovered key. The Recovery Desk uses that recovered key
+to sign a fresh access request; a public-key-only controller verifies the
+signature before granting one synthetic training pass.
+
+The core terminal lab uses a generated synthetic key and binds a UTF-8 vault
+context to its capsule. The lab
 rejects modified packets, then recovers from the genuine packet and rejects
 replay after success. Up to seven failed attempts may precede valid recovery
 on attempt eight. An eighth failure locks the receiver.
@@ -28,7 +36,7 @@ system settings.
 [Watch the narrated application demo — 1:36](https://github.com/ShivaPriyanShanmuga/prismguard32#watch-the-recovery-desk-application).
 
 The capsule is also integrated into an offline Rust signing-key recovery
-application. Windows CNG enrolls a P-256 signing identity; PrismGuard encrypts
+application on Windows. Windows CNG enrolls a P-256 signing identity; PrismGuard encrypts
 its 32-byte private scalar. Original enrollment handles and shares are dropped.
 After successful capsule recovery, the scalar signs a fresh, resource-bound
 synthetic training-access pass. A controller holding **only the public key**
@@ -51,6 +59,32 @@ are included. CNG provides established signatures after authorized release;
 the capsule's probing argument does not certify the provider. All requests
 and grants are synthetic, all roles share one process, and durable rollback
 protection and confidential provisioning remain outside this prototype.
+
+## Build and review it
+
+The implementation uses Rust with no third-party crates. Python supplies an
+independent arithmetic oracle and public-signature verifier. The application
+uses the installed Windows CNG provider for signatures after recovery. The
+five capsule-core source files are unchanged by the application integration.
+
+With Rust and Python installed, run from the repository root on Windows:
+
+```powershell
+python tools/recovery_desk_verify.py
+.\build\recovery-desk.exe desk
+```
+
+The first command builds the application, runs the 26 combined test groups,
+checks 32 fresh public passes with independent Python arithmetic, and exercises
+the interactive workflow. In the desk, try issuing before recovery, an altered
+capsule, valid recovery, an altered pass, a valid pass, and replay. The genuine
+pass grants once; the altered pass does not consume the pending challenge.
+
+[Full core reproduction guide](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/docs/REPRODUCE.md) ·
+[Core results](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/evidence/verification.json) ·
+[Application results](https://github.com/ShivaPriyanShanmuga/prismguard32/blob/main/evidence/recovery-desk/verification.json).
+All demonstration keys and grants are generated for the experiment; no real
+files, credentials, accounts, doors, or network targets are accepted.
 
 ## Mathematical construction
 
@@ -114,7 +148,7 @@ alone prevents side channels.
 
 ![Deliberately unsafe negative control](https://raw.githubusercontent.com/ShivaPriyanShanmuga/prismguard32/main/media/model-unsafe.png)
 
-- **14 passing Rust test groups**, including every byte value, parser and context
+- **14 passing core Rust test groups**, including every byte value, parser and context
   boundaries, state transitions, correlated operations, and authenticated
   out-of-domain plaintext.
 - **832 individual capsule-bit changes rejected.**
@@ -180,6 +214,15 @@ possible moves, spills, caller copies or crash dumps.
 
 ## Design lessons
 
+The main implementation challenge was preserving the masked computation at
+the operations that are easiest to overlook: correlated operands, squaring,
+cross-term accumulation, and the authentication decision. The multiplier and
+Fermat zero test use an explicit share schedule. Negative controls retain the
+leaks caused by unsafe accumulation and missing operand refresh. The recovery
+state machine separately handles failed attempts, authenticated release, and
+one-use consumption. Recovery Desk then makes that release boundary observable
+as a real signature and a verified application decision.
+
 A useful security project must show what its tests can detect and where its
 argument stops. The unsafe gadget control, reuse attack, and second-order
 boundary are as important as passing tests. The improvement over the baseline
@@ -195,3 +238,5 @@ No independent human cryptographic audit or physical measurement campaign has oc
 - [Wegman and Carter](https://research.ibm.com/publications/new-classes-and-applications-of-hash-functions)
 - [dudect, including testing limitations](https://github.com/oreparaz/dudect)
 - [Intel timing guidance](https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/secure-coding/mitigate-timing-side-channel-crypto-implementation.html)
+- [Microsoft CNG signature operation](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptsignhash)
+- [NIST FIPS 186-5: digital signatures](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf)

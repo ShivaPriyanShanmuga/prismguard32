@@ -31,13 +31,17 @@
     "sha256": "f3c8e2fdf9f11b76515f7757036c35b5ca6daefc564a8a031bbb447d0659a114",
     "bytes": 4787
   },
+  "docs/DEVPOST-METADATA.json": {
+    "sha256": "fec47ad54b937e989a3076878255df9841b5eebf09d43d141ff80bc938a03c72",
+    "bytes": 712
+  },
   "docs/DEVPOST-PUBLISHED.md": {
-    "sha256": "2b97117d31cf850caa72b53690c1b587911d1cfe05a25144190ca4285fa60b44",
-    "bytes": 11341
+    "sha256": "3d461783c3b723a919f715fbe712b72f4f2a0566e4f0380821e3c12e9c0b02f3",
+    "bytes": 13966
   },
   "docs/DEVPOST.md": {
-    "sha256": "435f059a6c5c0f7b9bbb0f2db84062877d031ab7c8eb09c6e5741e342bb7a76c",
-    "bytes": 9961
+    "sha256": "3df8aca3652ad81f2ef70b1a60bb478795b097dc2dd8fd81391785db1a30ab39",
+    "bytes": 13967
   },
   "docs/ORIGINALITY-REVIEW.md": {
     "sha256": "e0baf8487bdc2d6c3333e4af89d21d4bac37dcdbb88f0760ec2afff53026dd5e",

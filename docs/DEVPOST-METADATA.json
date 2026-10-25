@@ -1,0 +1,19 @@
+{
+  "title": "PrismGuard-32",
+  "pitch": "Masked master-key encryption in Rust, with bounded recovery, exact attack experiments, and a signing-key recovery desk that verifies one-use access passes.",
+  "track": "Cryptographic track",
+  "video": "https://youtu.be/nHYJd-8BGlc",
+  "video_visibility": "Unlisted",
+  "thumbnail": "media/cover-3x2.png",
+  "gallery": [
+    "media/recovery-desk/poster.png",
+    "media/model-safe.png",
+    "media/model-unsafe.png"
+  ],
+  "try_it_links": [
+    "https://github.com/ShivaPriyanShanmuga/prismguard32",
+    "https://youtu.be/nHYJd-8BGlc",
+    "https://github.com/ShivaPriyanShanmuga/prismguard32/tree/main/apps/recovery-desk"
+  ],
+  "final_submission_authorized": false
+}
