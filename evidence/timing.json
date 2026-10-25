@@ -1,0 +1,371 @@
+[
+  {
+    "seed": 20261025,
+    "cases": [
+      {
+        "case": "seal",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 1673.34,
+        "varied_mean_ns": 1669.11,
+        "raw_t": 0.6108406703032506,
+        "max_abs_t_with_cropping": 2.081658084458095,
+        "centered_square_t": 0.29263093750817887,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": 2.081658084458095,
+            "n0": 2758,
+            "n1": 2672
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -0.5349793203591906,
+            "n0": 6718,
+            "n1": 6721
+          },
+          {
+            "pooled_percentile": 95,
+            "t": 0.3537541465078517,
+            "n0": 9529,
+            "n1": 9527
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-valid",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 18358.16,
+        "varied_mean_ns": 18377.89,
+        "raw_t": -0.4424601254105884,
+        "max_abs_t_with_cropping": 0.660891804572043,
+        "centered_square_t": -1.1530328881233591,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": 0.4707200352902403,
+            "n0": 2178,
+            "n1": 2132
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -0.660891804572043,
+            "n0": 5127,
+            "n1": 5143
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -0.2933626649947065,
+            "n0": 9491,
+            "n1": 9519
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-rejected",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 4949.79,
+        "varied_mean_ns": 4932.18,
+        "raw_t": 1.0362752107783402,
+        "max_abs_t_with_cropping": 1.933837534376988,
+        "centered_square_t": 0.9660865454541833,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": -1.6284599165341274,
+            "n0": 2198,
+            "n1": 2093
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -1.933837534376988,
+            "n0": 6560,
+            "n1": 6519
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -1.6868767071613209,
+            "n0": 9497,
+            "n1": 9553
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "negative-control",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 62.15,
+        "varied_mean_ns": 7671.69,
+        "raw_t": -56.376778082384355,
+        "max_abs_t_with_cropping": 2909.6496307780544,
+        "centered_square_t": -1.653858285838431,
+        "cropped": [
+          {
+            "pooled_percentile": 50,
+            "t": -2909.6496307780544,
+            "n0": 9996,
+            "n1": 161
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -82.88503802686593,
+            "n0": 10000,
+            "n1": 9107
+          }
+        ],
+        "negative_control": true,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      }
+    ]
+  },
+  {
+    "seed": 90731,
+    "cases": [
+      {
+        "case": "seal",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 1680.04,
+        "varied_mean_ns": 1683.14,
+        "raw_t": -0.4892210469763646,
+        "max_abs_t_with_cropping": 0.7989887008754692,
+        "centered_square_t": -0.47920459879469973,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": 0.7989887008754692,
+            "n0": 2849,
+            "n1": 2793
+          },
+          {
+            "pooled_percentile": 50,
+            "t": 0.08264553105840469,
+            "n0": 6011,
+            "n1": 5921
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -0.6518786879982671,
+            "n0": 9536,
+            "n1": 9513
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-valid",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 18680.69,
+        "varied_mean_ns": 18661.68,
+        "raw_t": 0.5622375561026496,
+        "max_abs_t_with_cropping": 0.7971340898165253,
+        "centered_square_t": 0.38558143965333425,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": 0.7971340898165253,
+            "n0": 2505,
+            "n1": 2485
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -0.03321625360818907,
+            "n0": 5569,
+            "n1": 5590
+          },
+          {
+            "pooled_percentile": 95,
+            "t": 0.3308668301226858,
+            "n0": 9496,
+            "n1": 9507
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-rejected",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 4830.97,
+        "varied_mean_ns": 4839.68,
+        "raw_t": -0.7468369736009168,
+        "max_abs_t_with_cropping": 1.8103493182501595,
+        "centered_square_t": -0.47068127889348976,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": 0.493805508315729,
+            "n0": 2399,
+            "n1": 2375
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -1.1268812280402816,
+            "n0": 4983,
+            "n1": 5114
+          },
+          {
+            "pooled_percentile": 95,
+            "t": 1.8103493182501595,
+            "n0": 9564,
+            "n1": 9515
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "negative-control",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 43.6,
+        "varied_mean_ns": 4995.72,
+        "raw_t": -115.83542179736216,
+        "max_abs_t_with_cropping": 3686.271820810464,
+        "centered_square_t": -9.748887601425285,
+        "cropped": [
+          {
+            "pooled_percentile": 50,
+            "t": -3686.271820810464,
+            "n0": 9999,
+            "n1": 411
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -122.2654236533178,
+            "n0": 9999,
+            "n1": 9563
+          }
+        ],
+        "negative_control": true,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      }
+    ]
+  },
+  {
+    "seed": 481516,
+    "cases": [
+      {
+        "case": "seal",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 1689.74,
+        "varied_mean_ns": 1692.76,
+        "raw_t": -0.31483549277880235,
+        "max_abs_t_with_cropping": 0.3666319852709147,
+        "centered_square_t": -0.4887828055832943,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": -0.30503151033583153,
+            "n0": 5503,
+            "n1": 5531
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -0.30503151033583153,
+            "n0": 5503,
+            "n1": 5531
+          },
+          {
+            "pooled_percentile": 95,
+            "t": 0.3666319852709147,
+            "n0": 9614,
+            "n1": 9602
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-valid",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 19642.74,
+        "varied_mean_ns": 19686.06,
+        "raw_t": -0.6747010643302066,
+        "max_abs_t_with_cropping": 1.0899311899085729,
+        "centered_square_t": 0.1435100770188568,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": -0.5003689785766345,
+            "n0": 2168,
+            "n1": 2135
+          },
+          {
+            "pooled_percentile": 50,
+            "t": -1.0899311899085729,
+            "n0": 4998,
+            "n1": 5003
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -0.26455690165068263,
+            "n0": 9534,
+            "n1": 9509
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "open-rejected",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 4868.51,
+        "varied_mean_ns": 4828.58,
+        "raw_t": 1.8345170420821757,
+        "max_abs_t_with_cropping": 1.8345170420821757,
+        "centered_square_t": 1.6721604293469783,
+        "cropped": [
+          {
+            "pooled_percentile": 20,
+            "t": -0.5257257552270104,
+            "n0": 2350,
+            "n1": 2393
+          },
+          {
+            "pooled_percentile": 50,
+            "t": 0.8631571915220062,
+            "n0": 5624,
+            "n1": 5606
+          },
+          {
+            "pooled_percentile": 95,
+            "t": 0.29504275679720204,
+            "n0": 9505,
+            "n1": 9547
+          }
+        ],
+        "negative_control": false,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      },
+      {
+        "case": "negative-control",
+        "n_per_class": 10000,
+        "fixed_mean_ns": 58.64,
+        "varied_mean_ns": 6916.41,
+        "raw_t": -92.51292119298377,
+        "max_abs_t_with_cropping": 3120.7515792414624,
+        "centered_square_t": -5.683033088825741,
+        "cropped": [
+          {
+            "pooled_percentile": 50,
+            "t": -3120.7515792414624,
+            "n0": 9993,
+            "n1": 875
+          },
+          {
+            "pooled_percentile": 95,
+            "t": -111.22318586803209,
+            "n0": 10000,
+            "n1": 9018
+          }
+        ],
+        "negative_control": true,
+        "interpretation": "diagnostic only; no pass/fail security certificate"
+      }
+    ]
+  }
+]

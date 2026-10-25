@@ -1,0 +1,12 @@
+{
+  "field": 5,
+  "logical_input_pairs": 25,
+  "random_assignments_per_pair": 3125,
+  "executions": 78125,
+  "observed_wires": 19,
+  "single_wire_distribution_checks": 475,
+  "single_wire_mismatches": 0,
+  "unsafe_cross_sum_total_variation": 0.2,
+  "two_output_shares_reconstruct_product": true,
+  "scope": "exact same generic multiplier schedule, instantiated over F5; not an exhaustive whole-protocol or hardware proof"
+}

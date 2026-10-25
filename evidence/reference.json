@@ -1,0 +1,33 @@
+{
+  "wire_vectors": 512,
+  "arithmetic_cases": 20000,
+  "arithmetic_operations": 60000,
+  "max_seal_blinding_words": 482,
+  "max_open_blinding_words": 3317,
+  "lucas_lehmer_residue": 0,
+  "inverse9": 2049638230412172401,
+  "inverse17": 1763291712928118903,
+  "single_attempt_bound": 5.085658759397545e-34,
+  "eight_attempt_bound": 4.068527007518036e-33,
+  "independent_gadget_check": {
+    "independent_python_executions": 78125,
+    "observed_wires": 19,
+    "input_pairs": 25,
+    "distribution_mismatches": 0,
+    "scope": "small-field multiplication gadget only"
+  },
+  "reuse_attack": {
+    "attack": "known plaintext plus reused logical pad",
+    "second_key_recovered": true,
+    "meaning": "Expected failure outside the permitted one-use model, retained as a negative control."
+  },
+  "bounded_retry_toy": {
+    "field": 11,
+    "hidden_alpha_pairs": 100,
+    "guesses": 8,
+    "success_probability": 0.08,
+    "bound_q_over_alpha_pairs": 0.08,
+    "scope": "illustrative one-word toy; not the production transcript"
+  },
+  "vectors_sha256": "859b724b0c1dfeef5d5e0e0f73cfeaa26a576310e50f3a219b0783d606984dbb"
+}

@@ -1,0 +1,15 @@
+[package]
+name = "prismguard32"
+version = "0.2.0"
+edition = "2021"
+license = "MIT"
+description = "Masked finite-field key capsule and reproducible leakage laboratory"
+
+[features]
+audit = []
+fixtures = []
+
+[profile.release]
+overflow-checks = true
+panic = "abort"
+lto = false

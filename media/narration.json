@@ -1,0 +1,38 @@
+[
+  {
+    "id": "scene-01",
+    "speech": "PrismGuard thirty two is a masked master key capsule and recovery laboratory. The project keeps private arithmetic in shares and demonstrates both protection and failure cases, using only synthetic data."
+  },
+  {
+    "id": "scene-02",
+    "speech": "The improvement is concrete. Private nonlinear operations stay shared. Tag verification releases only its final decision. A receiver can reject seven hostile packets and still accept a genuine eighth packet."
+  },
+  {
+    "id": "scene-03",
+    "speech": "The capsule works over a Mersenne prime field. A fresh mask, matrix, and coordinate power produce the ciphertext. Public transformations add no entropy. Confidentiality depends on independent one-use material."
+  },
+  {
+    "id": "scene-04",
+    "speech": "Each private value is represented by two randomized field shares. The multiplier refreshes both operands, including squaring. Authentication differences remain shared. Only the final rejection bit is exposed before authenticated recovery."
+  },
+  {
+    "id": "scene-05",
+    "speech": "This exact small-field experiment checks nineteen multiplier wires across every pair of logical inputs and every randomness assignment. The protected distributions match. Rust and an independent Python model agree."
+  },
+  {
+    "id": "scene-06",
+    "speech": "The negative control deliberately combines cross terms without their random mask. Its distributions differ by total variation zero point two. Observing both shares also reconstructs the result. These excluded attacks are demonstrated, not hidden."
+  },
+  {
+    "id": "scene-07",
+    "speech": "This is actual captured output from the built Rust demonstration. Three modified packets are rejected. The genuine capsule then recovers the exact synthetic key. Replay after successful recovery is blocked."
+  },
+  {
+    "id": "scene-08",
+    "speech": "The package includes fourteen Rust test groups, five hundred twelve independent capsule vectors, and sixty thousand arithmetic checks. Timing diagnostics retain ordered samples and include deliberately leaky controls. Results are machine specific."
+  },
+  {
+    "id": "scene-09",
+    "speech": "The boundaries matter. Logical pads must never be reused. This is not a physical side-channel certificate or an independently audited product. Established techniques are credited, and AI assistance is disclosed. The source and evidence support review."
+  }
+]

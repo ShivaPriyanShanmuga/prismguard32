@@ -1,0 +1,20 @@
+[
+  {
+    "case": "seal_rng_provisioning_excluded",
+    "samples": 1000,
+    "median_ns": 1800,
+    "p95_ns": 2700
+  },
+  {
+    "case": "open_rng_provisioning_excluded",
+    "samples": 1000,
+    "median_ns": 19500,
+    "p95_ns": 26800
+  },
+  {
+    "case": "end_to_end_including_os_rng_pools_ingress_and_provisioning",
+    "samples": 200,
+    "median_ns": 60500,
+    "p95_ns": 102100
+  }
+]

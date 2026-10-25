@@ -1,0 +1,18 @@
+error[E0599]: no method named `clone` found for struct `prism::Receiver` in the current scope
+  --> <project>\build\receiver-clone_must_not_compile.rs:3:122
+   |
+3  | fn main(){let mut e=prism::entropy::Entropy::system().unwrap();let(_,r)=prism::provision([0;16],&mut e).unwrap();let _=r.clone();}
+   |                                                                                                                          ^^^^^ method not found in `prism::Receiver`
+   |
+  ::: <project>\build\..\src\lib.rs:59:1
+   |
+59 | pub struct Receiver {
+   | ------------------- method `clone` not found for this struct
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `clone`, perhaps you need to implement it:
+           candidate #1: `Clone`
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0599`.

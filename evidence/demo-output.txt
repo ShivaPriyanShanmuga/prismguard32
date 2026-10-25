@@ -1,0 +1,16 @@
+PRISMGUARD-32 | Masked key capsule + adversarial recovery lab
+Research prototype; synthetic data only
+
+[1] Masked synthetic master key; protected computation uses two shares
+[2] Public 104-byte capsule: 50475541524400024e1d6fbaa29079d87d23c407ae21308710a0691c4de0f208f7bad261f82baa1a5de579c549963c113bb2ad4eb57cc80461f6c3c2defaca1d656e1a88d8ddb901168181494aa32a022250529b3fccfd1dd81583572a01421e40b5bef988baaf06
+    Fresh blinding words used by seal: 278
+[3.1] Modified ciphertext: REJECTED; state Ready { attempts_left: 7 }
+[3.2] Modified ciphertext: REJECTED; state Ready { attempts_left: 6 }
+[3.3] Modified ciphertext: REJECTED; state Ready { attempts_left: 5 }
+[4] Valid recovery after three bad packets: PASS
+    Fresh blinding words used by open: 3113
+[5] Replay after success: BLOCKED
+[6] Owned shares/material wiped on drop (copies/spills are not guaranteed erased)
+
+Windows demo: stdout + OS randomness only; no files, sockets, subprocesses or real credentials.
+Formal boundary: single field-wire probing model. Not hardware side-channel certification.

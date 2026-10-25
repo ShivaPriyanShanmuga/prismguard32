@@ -1,0 +1,32 @@
+{
+  "target": "Rust 1.89.0 x86_64-pc-windows-msvc opt-level=3 overflow-checks=yes",
+  "function_shape_checks": {
+    "release": {
+      "conditional_jump_instructions": 0,
+      "integer_division_instructions": 0,
+      "conditional_move_instructions": 1
+    },
+    "refresh": {
+      "conditional_jump_instructions": 0,
+      "integer_division_instructions": 0,
+      "conditional_move_instructions": 2
+    },
+    "add": {
+      "conditional_jump_instructions": 0,
+      "integer_division_instructions": 0,
+      "conditional_move_instructions": 2
+    },
+    "sub": {
+      "conditional_jump_instructions": 0,
+      "integer_division_instructions": 0,
+      "conditional_move_instructions": 2
+    },
+    "multiply": {
+      "conditional_jump_instructions": 0,
+      "integer_division_instructions": 0,
+      "conditional_move_instructions": 8
+    }
+  },
+  "whole_library_integer_divisions": 0,
+  "limits": "Calls to entropy-provider bounds checks are not inlined into these bodies. This checks instruction shape, not dataflow, compiler preservation, hardware timing, transitions or leakage."
+}

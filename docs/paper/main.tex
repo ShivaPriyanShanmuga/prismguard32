@@ -1,0 +1,389 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb F_p}
+\newcommand{\one}{\mathbf1}
+\title{\textbf{PrismGuard-32}\\Masked Key Capsules with Bounded Recovery\\and an Executable Probing Laboratory}
+\author{Mathematics for Systems Security --- Cryptographer Track}
+\date{October 25, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+PrismGuard-32 is an experimental master-key capsule and protected-computation
+case study. Its contribution is a specific integration of randomized
+two-share arithmetic, a masked acceptance predicate, an eight-attempt
+receiver state machine, and reproducible attack experiments. A custom
+finite-field capsule supplies an inspectable one-use confidentiality
+foundation; no novelty or additional hardness is attributed to its public
+matrix and power maps. We give correctness and ideal public-adversary
+substitution arguments, analyze a single-field-wire arithmetic model, and
+exhaustively check the shared multiplication schedule over a small field
+in Rust and independently in Python. Deliberately unsafe variants expose
+the boundary of protection. The results do not establish a new multi-use
+encryption primitive, whole-program formal verification, compiler-level
+noninterference, or physical side-channel resistance.
+\end{abstract}
+
+\section{Research question and contribution}
+Can a key-capsule application avoid unsharing private nonlinear computations,
+verify tags without exposing raw differences, and tolerate several hostile
+packets before legitimate recovery? PrismGuard-32 addresses this narrow
+question with source, an in-memory application, proofs under explicit
+assumptions, and negative controls. The preserved PrismLock-32 baseline
+used raw private arithmetic and allowed only one receiver attempt.
+The new implementation shares that arithmetic and changes the recovery
+contract, with a corresponding change to the probability bound.
+
+Finite fields, full-entropy masking, power permutations, ISW-style
+masking~\cite{isw}, and polynomial authentication~\cite{cw} are established
+techniques. The exact application, composition, transcript, release policy,
+state contract, and evidence harness were developed for this entry.
+We do not claim to invent the mathematical foundations or prove worldwide
+novelty. The organizer must interpret the track's restriction on existing
+plaintext-encryption algorithms; direct implementation alone does not
+resolve that interpretation.
+
+\section{Parameters and wire protocol}
+Let
+\[
+p=2^{61}-1,\quad
+A=I+\one\one^T\in\F^{8\times8},\quad
+A^{-1}=I-9^{-1}\one\one^T.
+\]
+Here $9^{-1}=2049638230412172401\bmod p$, $\det A=9$, and
+\[
+d=1763291712928118903,\qquad 17d\equiv1\pmod{p-1}.
+\]
+The coordinate power $x\mapsto x^{17}$ is a permutation, including at zero.
+The independent reference checks the prime with the Lucas--Lehmer criterion
+for prime exponent 61, obtaining residue zero after 59 iterations.
+
+Encode a 32-byte master key as eight little-endian 32-bit words
+$m\in\{0,\ldots,2^{32}-1\}^8\subset\F^8$.
+Fresh logical material consists of
+\[
+r\gets\F^8,\quad
+\alpha_0,\alpha_1\gets\F^\ast,\quad
+\beta_0,\beta_1\gets\F.
+\]
+A public 16-byte identifier and public context $a$ of at most 256 bytes
+identify the capsule and application. Text contexts use UTF-8.
+The capsule's logical encryption is
+\begin{equation}
+ c=A\bigl((Am+r)^{[17]}\bigr).
+ \label{eq:capsule}
+\end{equation}
+The power is coordinatewise. Full-entropy masking supplies secrecy;
+the public bijections add no entropy or cryptographic hardness.
+
+Let $B(b)$ split bytes into consecutive chunks of at most seven bytes,
+each interpreted little-endian as a field value. Define the injective
+transcript
+\[
+T=(\mathtt{0x504755415244},\,2,\,B(\mathrm{id}),\,|a|,\,B(a),\,
+c_0,\ldots,c_7).
+\]
+There are at most $1+1+3+1+37+8=51$ coefficients. The context byte length
+prevents ambiguity in its last zero-padded chunk. For $T=(t_1,\ldots,t_N)$,
+\begin{equation}
+H_\alpha(T)=\alpha^{N+1}+\sum_{j=1}^{N}t_j\alpha^{N+1-j},\quad
+\tau_\ell=H_{\alpha_\ell}(T)+\beta_\ell \pmod p.
+\label{eq:tag}
+\end{equation}
+The Horner implementation begins at 1 and finishes with an additional
+multiplication by $\alpha$. Omitting the final multiplication allows a
+known additive modification to the final ciphertext coefficient and tag.
+
+\begin{center}
+\begin{tabular}{rll}
+\toprule
+Offset & Bytes & Meaning\\
+\midrule
+0 & 8 & \texttt{PGUARD}, zero byte, version byte 2\\
+8 & 16 & Public identifier\\
+24 & 64 & Eight canonical ciphertext words\\
+88 & 16 & Two canonical tag words\\
+\bottomrule
+\end{tabular}
+\end{center}
+All field words are unsigned 64-bit little-endian values below $p$.
+Context is supplied separately and authenticated. The format is exactly
+104 bytes. Noncanonical values, wrong magic/version, incorrect length,
+and overlong contexts are rejected.
+
+\section{Protected arithmetic}
+A private field value $x$ is represented as $(x_L,x_R)$ with
+$x=x_L+x_R\bmod p$. Trusted ingress and provisioning perform the initial
+encoding. The protected phase never explicitly reconstructs a private
+logical value except at a documented public-output or authorized-release
+boundary. Both shares are in the same process; this is not physical
+domain separation.
+
+\subsection{Refresh and linear operations}
+For independent uniform $\delta$,
+\[
+\operatorname{Refresh}(x_L,x_R)=
+(x_L+\delta,\ x_R-\delta).
+\]
+Addition and subtraction refresh one operand first. This is necessary:
+blindly adding correlated representations can cancel masks.
+Public addition changes one component; public scaling scales both.
+
+\subsection{Multiplication, including correlated inputs}
+Refresh both operands independently, even for squaring. For logical values
+$a,b$, let the refreshed first components be independent uniform $U,V$,
+with second components $a-U,b-V$. Take independent uniform $\rho$ and compute
+\begin{align*}
+w_{00}&=UV,&w_{01}&=U(b-V),\\
+w_{10}&=(a-U)V,&w_{11}&=(a-U)(b-V),\\
+z_L&=w_{00}+\rho,&q_0&=w_{01}-\rho,\\
+q_1&=q_0+w_{10},&z_R&=q_1+w_{11}.
+\end{align*}
+The order matters: no unmasked accumulation of the three cross terms occurs.
+The implementation uses the same generic source schedule for the production
+field and the small-field audit.
+
+\begin{lemma}[Arithmetic correctness]
+The output represents $ab$.
+\end{lemma}
+\begin{proof}
+Summing its components cancels $\rho$ and includes exactly the four products
+in $(U+(a-U))(V+(b-V))=ab$.
+\end{proof}
+
+\begin{lemma}[Single-wire gadget distributions]
+For fixed logical $a,b$ and fresh independent input refreshes and $\rho$,
+every observed private field wire in the stated multiplier schedule has a
+distribution independent of $a,b$, assuming input share marginals have that
+property.
+\end{lemma}
+\begin{proof}
+The refreshed $U,V$ are independent uniform field elements even when the
+logical inputs coincide. Each $w_{ij}$ is distributed as a product of two
+independent uniform field elements: its mass at zero is $(2p-1)/p^2$ and
+at any nonzero value is $(p-1)/p^2$, independent of $a,b$.
+The output and accumulator values masked by $\rho$ are uniform.
+Individual old input shares have the assumed independent marginals;
+refresh deltas are independent randomness; individual refreshed components
+are uniform. Thus each listed wire has an input-independent distribution.
+This is a statement about the specified arithmetic schedule.
+\end{proof}
+
+The ideal circuit argument follows the same conditional-distribution
+reasoning through refreshed binary gates: logical values are unaffected
+by blinding coins, and each private share/temporary has an input-independent
+marginal. Public constants and deliberately released outputs are treated
+as public. We do not claim that the small-field audit constitutes a formal
+whole-program proof, nor infer robust or higher-order composability from
+single-wire marginals. Physical defaults and composability require stronger
+models~\cite{robust}.
+
+\subsection{A deliberately unsafe alternative}
+If a multiplier forms the unmasked sum of its three cross terms, that value
+is $ab-UV$. Its distribution is a shifted product distribution and depends
+on $ab$. Over $\mathbb F_5$, the exact experiment finds total-variation
+distance $0.20$ between the selected input cases. Both output shares
+together reconstruct $ab$, demonstrating the excluded two-probe boundary.
+
+\section{Masked verification and controlled release}
+Compute both expected tags entirely in shares. Subtract the public candidate
+tag in the shared representation, without releasing either difference.
+For a difference $\Delta$ compute
+\[
+b=\Delta^{p-1}=
+\begin{cases}0,&\Delta=0,\\1,&\Delta\ne0.\end{cases}
+\]
+Exponentiation uses shared multiplication with a fixed public exponent.
+Combine both results in shares:
+\[
+b_{\rm reject}=b_0+b_1-b_0b_1.
+\]
+Only this one-bit predicate is released. Public parser checks may fail
+earlier. After successful authentication, compute
+\[
+ m=A^{-1}\left((A^{-1}c)^{[d]}-r\right)
+\]
+in shares, then cross the authorized plaintext boundary. Reject if a
+recovered field word does not fit in 32 bits, and release no partial
+plaintext to the caller. The returned secret has an owned wipe path.
+
+Explicit release sites in the source are limited to public ciphertext,
+public authentication tags, the authentication predicate, and authenticated
+plaintext. Timing of success and rejection paths need not match:
+the outcome is intentionally public. A generic rejection error avoids
+exposing a finer tag-failure oracle.
+
+\section{Secrecy and bounded public substitution}
+\begin{theorem}[Ideal one-use public confidentiality]
+For ideal uniform independent logical material, the public capsule
+distribution is independent of $m$ for fixed public identifier/context.
+\end{theorem}
+\begin{proof}
+For each fixed $m$, translation by $Am$ maps uniform $r$ to uniform
+$Am+r$. Both subsequent maps in~\eqref{eq:capsule} are bijections of
+$\F^8$. Independently uniform $\beta_0,\beta_1$ make both tags uniform.
+Thus every message induces the same public distribution.
+\end{proof}
+The implementation uses OS-CSPRNG output, so this ideal statement does not
+make the practical randomness information-theoretically random.
+
+\begin{lemma}[One public substitution]
+After one genuine capsule is observed, any one altered well-formed
+transcript is accepted with probability at most
+$\epsilon=(52/(p-1))^2$ in the no-additional-leakage public-adversary model.
+\end{lemma}
+\begin{proof}
+Each fresh $\beta_\ell$ leaves $\alpha_\ell$ uniform and hidden after the
+valid tag is observed. Different injective encodings yield a nonzero
+polynomial difference of degree at most 52 with zero constant term.
+Subtracting any chosen tag difference cannot make that polynomial zero
+identically. It has at most 52 roots in $\F^\ast$.
+The two evaluation points are independent, giving the product bound.
+An unchanged transcript with a different tag is rejected deterministically.
+\end{proof}
+
+\begin{theorem}[At most eight public attempts]
+For the receiver state machine, the probability of any altered-transcript
+acceptance in $Q\le8$ public verification attempts is at most
+\[
+Q\epsilon\le8\left(\frac{52}{p-1}\right)^2
+\approx4.069\cdot10^{-33}\approx2^{-107.6}.
+\]
+\end{theorem}
+\begin{proof}
+Fix the adversary's external randomness and observed public capsule.
+Before the first acceptance, its all-rejection path determines at most
+$Q$ candidate forgeries. Each candidate's acceptance event obeys the
+one-substitution bound. A union bound applies to these events, with no
+independence assumption between attempts. In particular, we do not
+incorrectly assume that the hidden points remain freshly uniform after
+conditioning on each rejection.
+\end{proof}
+An unchanged genuine capsule is not a forgery. Numerical authentication
+bounds above exclude additional key-dependent leakage; the single-wire
+circuit analysis is stated separately. No unrestricted joint leakage/CCA
+theorem is claimed.
+
+\section{Receiver state and availability}
+Provisioning creates a non-\texttt{Clone}, non-\texttt{Copy} sender handle
+and receiver object with independent share representations of identical
+logical material. Sealing consumes the sender handle. The receiver permits
+eight attempts:
+\[
+\mathrm{Ready}(8)\longrightarrow\cdots\longrightarrow
+\begin{cases}
+\mathrm{Opened},&\text{valid recovery},\\
+\mathrm{Locked},&\text{eighth rejection}.
+\end{cases}
+\]
+Success consumes logical material. The eighth rejection discards it.
+Malformed packets consume the same attempt budget. Insufficient blinding
+entropy returns a resource error before an attempt starts.
+Seven bad packets can therefore precede a valid eighth recovery.
+Eight bad packets still deny service. In-memory state does not prevent
+snapshots, unsafe copies, or rollback; no durable ledger is implemented.
+
+Never encrypt a second message under the same logical pad. Define
+$Z(c)=(A^{-1}c)^{[d]}$. Under reuse,
+\[
+A^{-1}(Z(c')-Z(c))=m'-m.
+\]
+A known plaintext reveals the second plaintext. The Python reference
+contains a successful synthetic attack exhibiting this excluded use.
+
+\section{Implementation and measurements}
+Production code uses no third-party crates or existing plaintext-cipher
+implementation. Field reduction uses Mersenne folding and conditional
+arithmetic rather than division. Binary masking gates are kept as explicit
+function boundaries to make the target easier to inspect; this is not a
+compiler-preservation proof. Private-dependent table indices are absent.
+Owned buffers have volatile wipe paths. Moves, spills, registers, caller
+copies, paging and crash dumps remain outside a complete-erasure guarantee.
+
+Logical material uses 96 bytes; two-share storage takes 192 bytes per
+endpoint plus the public identifier. A masked master key takes 128 bytes.
+The implementation provisions a 64 KiB blinding pool, of which the maximum
+observed seal/open consumption at context size 256 is 482/3317 field words.
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Recorded operation & Samples & Median\\
+\midrule
+Seal, pool provisioning excluded & 1000 & $1.7\,\mu$s\\
+Valid open, pool provisioning excluded & 1000 & $18.8\,\mu$s\\
+Full workflow including OS RNG & 200 & $88.5\,\mu$s\\
+\bottomrule
+\end{tabular}
+\end{center}
+The complete raw summary and compiler/source hashes accompany the entry.
+Results are from one Windows x64 build, not performance promises.
+
+\section{Verification record}
+\begin{itemize}
+\item Fourteen Rust test groups; all 832 individual capsule-bit modifications
+rejected; all byte values roundtripped; context/parser/state boundaries checked.
+\item 512 full capsule vectors matched by independent Python big-integer code;
+60,000 field-operation results checked.
+\item 2000 reproducible multi-bit mutations rejected, with valid recovery after
+each rejection. This is not a coverage-guided fuzzing claim.
+\item The exact generic multiplier schedule runs 78,125 times over $\mathbb F_5$:
+25 logical pairs, 3125 coin assignments each, 19 observed wires. All 475
+per-input wire-distribution checks agree. Python independently reproduces them.
+\item Unsafe cross-term accumulation is distinguishable; two shares recover the
+logical output; a reused-pad known-plaintext attack succeeds as expected.
+\item Compile-fail checks reject sender reuse and receiver cloning.
+\item Three timing runs cover seal, valid open, rejected open, and an intentional
+large-leak negative control, with 10,000 samples per class per case.
+Raw and pooled-percentile-cropped Welch statistics are retained.
+\item This run has no exploratory protected-case statistic above 4.5. Negative
+controls are detected. This is not a constant-time certificate or a calibrated
+whole-experiment significance claim; testing limitations apply~\cite{dudect}.
+\item Saved optimized library assembly contains no integer division instruction.
+The inspected refresh/add/subtract/multiply bodies have no conditional jump;
+entropy access has public bounds checks. No formal binary dataflow proof is made.
+\end{itemize}
+
+\section{Trust boundaries, disclosure, and remaining work}
+Trusted ingress/provisioning handles raw values. Authorized release returns
+the recovered master key. The arithmetic result does not cover two probes,
+continual leakage collected across executions, transition/glitch leakage,
+power/EM, active faults, speculative execution, compromised operating systems,
+or rollback. Physical leakage and compiler-preservation proofs require
+additional work; single-wire reasoning must not be relabeled as hardware
+resistance~\cite{intel,robust}.
+
+All testing uses synthetic data in a newly created folder. No existing user
+files are encrypted, edited or deleted. The Windows demo performs no file,
+network, registry, system-setting, or subprocess actions; its external service
+is operating-system randomness. The verification harness invokes the installed
+compiler and writes its own build/evidence files. Baseline hashes are compared
+before and after verification.
+
+AI assistance was used for design, implementation, testing and writing.
+No independent human cryptographic audit or physical test campaign has occurred.
+Organizer acceptance and winning cannot be guaranteed.
+
+\begin{thebibliography}{9}
+\bibitem{isw}Y. Ishai, A. Sahai, D. Wagner,
+\emph{Private Circuits: Securing Hardware against Probing Attacks}, CRYPTO 2003.
+\url{https://iacr.org/archive/crypto2003/27290462/27290462.pdf}
+\bibitem{robust}S. Faust et al.,
+\emph{Composable Masking Schemes in the Presence of Physical Defaults and the
+Robust Probing Model}, TCHES 2018.
+\url{https://eprint.iacr.org/2017/711}
+\bibitem{cw}M. N. Wegman, J. L. Carter,
+\emph{New classes and applications of hash functions}, FOCS 1979.
+\url{https://research.ibm.com/publications/new-classes-and-applications-of-hash-functions}
+\bibitem{dudect}O. Reparaz, J. Balasch, I. Verbauwhede,
+\emph{Dude, is my code constant time?}, DATE 2017; implementation and limitations.
+\url{https://github.com/oreparaz/dudect}
+\bibitem{intel}Intel, \emph{Guidelines for Mitigating Timing Side Channels Against
+Cryptographic Implementations}.
+\url{https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/secure-coding/mitigate-timing-side-channel-crypto-implementation.html}
+\end{thebibliography}
+\end{document}

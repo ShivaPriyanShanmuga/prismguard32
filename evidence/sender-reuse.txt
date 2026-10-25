@@ -1,0 +1,17 @@
+error[E0382]: use of moved value: `s`
+   --> <project>\build\sender-reuse_must_not_compile.rs:3:234
+    |
+3   | ...et(s,_)=prism::provision([0;16],&mut e).unwrap();let m=prism::ingest(prism::Secret32::new([0;32]),&mut e).unwrap();let _=prism::seal(s,&m,b"x",&mut e);let _=prism::seal(s,&m...
+    |       - move occurs because `s` has type `Sealer`, which does not implement the `Copy` trait                                            - value moved here                  ^ value used here after move
+    |
+note: consider changing this parameter type in function `seal` to borrow instead if owning the value isn't necessary
+   --> <project>\build\..\src\lib.rs:246:10
+    |
+245 | pub fn seal(
+    |        ---- in this function
+246 |     key: Sealer,
+    |          ^^^^^^ this parameter takes ownership of the value
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.

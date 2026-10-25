@@ -1,0 +1,5 @@
+{
+  "mutated_capsules_rejected": 2000,
+  "valid_recoveries_after_rejection": 2000,
+  "generator": "reproducible synthetic mutations; not a coverage-guided fuzzer"
+}
